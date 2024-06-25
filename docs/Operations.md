@@ -1,0 +1,165 @@
+# Operations
+
+## Calculation (maths)
+
+- `Data.Foldable`
+  - `sum`
+  - `product`
+  - `maximum`
+  - `minimum`
+- `Data.Ring`
+  - `sub` (subtraction)
+  - `negate`
+- `Data.EuclideanRing`
+  - `degree`
+  - `div` (division)
+  - `mod`
+  - `gcd` (greatest common divisor)
+  - `lcm` (least common multiple)
+- `Data.Int`
+  - `ceil` (Number -> Int)
+  - `floor`
+  - `fromNumber`
+  - `fromString`
+  - `pow`
+  - `quot` (quotient - same as `div` in EuclideanRing above)
+  - `rem` (remainder after truncating integer division - same as `mod` if dividend positive)
+  - `round`
+  - `toNumber`
+  - `trunc`
+- `Data.Number`
+  - `abs`
+  - `acos`
+  - `asin`
+  - `atan`
+  - `atan2`
+  - `ceil`
+  - `cos`
+  - `e`
+  - `exp` (e to the power of the argument)
+  - `floor` (differs from `trunc` in that always toward zero)
+  - `fromString`
+  - `infinity`
+  - `isFinite`
+  - `isNaN`
+  - `ln10` (natural log of 10, ~ 2.3025)
+  - `ln2` (natural log of 2, ~ 0.6931)
+  - `log` (natural log of a number)
+  - `log10e` (base 10 log of e, ~ 0.43429)
+  - `log2e` (base 2 log of e, ~ 1.4426)
+  - `max` (numbers only)
+  - `min` (numbers only)
+  - `nan` (not a number)
+  - `pi`
+  - `pow` (raise a number to the power of another number -- see Data.Int)
+  - `remainder` (not the same as mod)
+  - `round`
+  - `sign` (returns +/-1 or +/-0 if 0 or NaN if NaN)
+  - `sin`
+  - `sqrt` (returns square root of the argument)
+  - `sqrt1_2` (square root of 1/2, ~ 0.707107)
+  - `sqrt2` (square root of 2, ~ 1.414214)
+  - `tan`
+  - `tau` (ratio of circumference to radius, ~ 6.283185)
+  - `trunc` (differs from `floor` in that always toward -Infinity)
+
+## Conditionals
+
+- `Data.Foldable`
+  - `and` (how to use with Either?)
+  - `or`
+  - `all`
+    - `all f` is the same as `and <<< map f`
+  - `any`
+    - `any f` is the same as `or <<< map f`
+  - `elem` (element of a set)
+  - `notElem`
+  - `null` (structure is empty)
+  - `length` (of a data structure)
+- `Data.Int`
+  - `even` (Int -> Boolean)
+  - `odd`
+- `Data.Ord`
+  - `compare` (comparison function - returns Ordering)
+  - `lessThan` (<)
+  - `lessThanOrEq` (<=)
+  - `greaterThan` (>)
+  - `greaterThanOrEq` (>=)
+  - `min`
+  - `max`
+  - `clamp` (clamp value between min and max)
+  - `between` (test if value between min and max)
+- `Data.Eq`
+  - `eq` (==)
+  - `notEq` (/=)
+- `Data.HeytingAlgebra`
+  - `conj` (&&)
+  - `disj` (||)
+  - `not`
+
+## Validation (based on conditionals)
+
+Take a look at [`Formless`](https://thomashoneyman.github.io/purescript-halogen-formless/#) module.
+
+- `Formless.Query`
+  - `validate`
+  - `validateAll`
+- `Formless.Data.FormFieldResult`
+  - `NotValidated`
+  - `Validating`
+  - `Error error`
+  - `Success output`
+- `Formless.Retrieve`
+  - `getField`
+  - `getInput`
+  - `getTouched`
+  - `getResult`
+  - `getError`
+  - `getOutput`
+  - etc.
+
+## Injection
+
+- `fromLocalStorage`
+- `fromSessionStorage`
+- `fromArgument`
+- `fromFormInput`
+- `fromSearchString`
+- `fromUrlParameters`
+- `fromCookie`
+- `fromElement`
+- `fromAPI` (async - use fiber?)
+- `fromClock`
+- `fromPromise` ?
+- `random`
+
+- `Web.DOM.Element`
+  - `getAttribute`
+  - `id`
+  - `tagName`
+  - `classList`
+  - `matches`
+  - `closest`
+- `Web.DOM.ParentNode`
+  - `querySelector`
+  - `querySelectorAll`
+- `Web.DOM.Document`
+  - `url`
+  - `documentURI`
+  - `origin`
+  - `getElementsByTagName`
+  - `getElementsByTagNameNS`
+  - `getElementsByClassName`
+- `Web.DOM.NonElementParentNode`
+  - `getElementById`
+- `Fetch`
+  - `fetch`
+- `Fetch.Internal.Response`
+  - `blob`
+  - `body`
+  - `convert`
+  - `json`
+  - `text`
+- `Fetch.Internal.Headers`
+  - `contains`
+  - `lookup`
