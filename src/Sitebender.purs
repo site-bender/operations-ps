@@ -1,6 +1,16 @@
 module Sitebender
   ( Operation(..)
   , Error(..)
+  , AddOpRow
+  , DivideOpRow
+  , MultiplyOpRow
+  , NegateOpRow
+  , SubtractOpRow
+  , AddOperation(..)
+  , DivideOperation(..)
+  , MultiplyOperation(..)
+  , NegateOperation(..)
+  , SubtractOperation(..)
   , FromArgumentOpRow
   , FromArgumentOperation(..)
   , FromConstantOperation(..)
@@ -10,34 +20,44 @@ module Sitebender
   , FromLocalStorageOperation(..)
   , FromSessionStorageOperation(..)
   , FromStorageOpRow
+  , createAddOp
+  , createDivideOp
   , createFromArgumentOp
   , createFromConstantOp
-  -- , createFromFormFieldOp
-  -- , createFromLocalStorageOp
-  -- , createFromSessionStorageOp
-  -- , getFromFormField
-  -- , getFromLocalStorage
-  -- , getFromSessionStorage
+  , createFromFormFieldOp
+  , createFromLocalStorageOp
+  , createFromSessionStorageOp
+  , createMultiplyOp
+  , createNegateOp
+  , createSubtractOp
+  , getFromFormField
+  , getFromLocalStorage
+  , getFromSessionStorage
   , getValue
   , makeOperate
+  , OpResult(..)
   ) where
 
-import Prelude
-
+import Prelude (Unit, bind, pure, ($), (*), (+), (-), (<>), (==), (>>=))
+import Data.Array as A
+import Data.Array.NonEmpty (NonEmptyArray, head, last)
 import Data.Either (Either(..), note)
--- import Data.Foldable (foldl)
 import Data.Generic.Rep (class Generic)
+import Data.Int (toNumber)
+import Data.Int as I
 import Data.Maybe (Maybe(..))
+import Data.Number as N
+import Data.Ring as Ring
+import Data.Show (class Show)
 import Data.Show.Generic (genericShow)
 import Data.String.Common (joinWith)
 import Effect (Effect)
 import Web.DOM.ParentNode (QuerySelector(..), querySelector)
--- import Web.HTML (window)
+import Web.HTML (window)
 import Web.HTML.HTMLDocument (HTMLDocument, toParentNode)
 import Web.HTML.HTMLInputElement (HTMLInputElement, fromElement, value)
-
--- import Web.HTML.Window (document, localStorage, sessionStorage)
--- import Web.Storage.Storage (getItem)
+import Web.HTML.Window (document, localStorage, sessionStorage)
+import Web.Storage.Storage (getItem)
 
 newtype Error = Error (Array String)
 
@@ -45,9 +65,18 @@ derive instance Generic Error _
 instance Show Error where
   show = genericShow
 
-type AddOpRow a r = (addends :: (Array (Operation a)) | r)
-type DivideOpRow a r = (dividend :: (Operation a), divisor :: (Operation a) | r)
-type FromConstantOpRow a r = (operand :: a | r)
+concat :: Error -> Error -> Error
+concat (Error xs) (Error ys) = Error (A.concat [ xs, ys ])
+
+data OpResult = OpInt Int | OpNumber Number
+
+derive instance Generic OpResult _
+instance Show OpResult where
+  show = genericShow
+
+type AddOpRow r = (leftAddend :: Operation, rightAddend :: Operation | r)
+type DivideOpRow r = (dividend :: Operation, divisor :: Operation | r)
+type FromConstantOpRow r = (operand :: OpResult | r)
 type FromArgumentOpRow r = (| r)
 type FromStorageOpRow r = (key :: String | r)
 type FromFormFieldOpRow r =
@@ -60,149 +89,194 @@ type FromFormFieldOpRow r =
   | r
   )
 
-type MultiplyOpRow a r = (multipliers :: (Array (Operation a)) | r)
-type NegateOpRow a r = (operand :: (Operation a) | r)
-type SubtractOpRow a r = (minuend :: (Operation a), subtrahend :: (Operation a) | r)
+type MultiplyOpRow r = (multiplicand :: Operation, multiplier :: Operation | r)
+type NegateOpRow r = (operand :: Operation | r)
+type SubtractOpRow r = (minuend :: Operation, subtrahend :: Operation | r)
 
-newtype AddOperation a = AddOperation (Record ((AddOpRow a) ()))
+newtype AddOperation = AddOperation (Record (AddOpRow ()))
 
-derive instance Generic (AddOperation a) _
-instance Show a => Show (AddOperation a) where
+derive instance Generic AddOperation _
+instance Show OpResult => Show AddOperation where
   show = genericShow
 
-newtype DivideOperation a = DivideOperation (Record ((DivideOpRow a) ()))
+newtype DivideOperation = DivideOperation (Record (DivideOpRow ()))
 
-derive instance Generic (DivideOperation a) _
-instance Show a => Show (DivideOperation a) where
+derive instance Generic DivideOperation _
+instance Show OpResult => Show DivideOperation where
   show = genericShow
 
-newtype FromConstantOperation a = FromConstantOperation (Record ((FromConstantOpRow a) ()))
+newtype FromConstantOperation = FromConstantOperation (Record (FromConstantOpRow ()))
 
-derive instance Generic (FromConstantOperation a) _
-instance Show a => Show (FromConstantOperation a) where
+derive instance Generic FromConstantOperation _
+instance Show OpResult => Show FromConstantOperation where
   show = genericShow
 
-newtype FromArgumentOperation a = FromArgumentOperation (Record (FromArgumentOpRow ()))
+newtype FromArgumentOperation = FromArgumentOperation (Record (FromArgumentOpRow ()))
 
-derive instance Generic (FromArgumentOperation a) _
-instance Show (FromArgumentOperation a) where
+derive instance Generic FromArgumentOperation _
+instance Show FromArgumentOperation where
   show = genericShow
 
-newtype FromLocalStorageOperation a = FromLocalStorageOperation (Record (FromStorageOpRow ()))
+newtype FromLocalStorageOperation = FromLocalStorageOperation (Record (FromStorageOpRow ()))
 
-derive instance Generic (FromLocalStorageOperation a) _
-instance Show (FromLocalStorageOperation a) where
+derive instance Generic FromLocalStorageOperation _
+instance Show FromLocalStorageOperation where
   show = genericShow
 
-newtype FromSessionStorageOperation a = FromSessionStorageOperation (Record (FromStorageOpRow ()))
+newtype FromSessionStorageOperation = FromSessionStorageOperation (Record (FromStorageOpRow ()))
 
-derive instance Generic (FromSessionStorageOperation a) _
-instance Show (FromSessionStorageOperation a) where
+derive instance Generic FromSessionStorageOperation _
+instance Show FromSessionStorageOperation where
   show = genericShow
 
-newtype FromFormFieldOperation a = FromFormFieldOperation (Record (FromFormFieldOpRow ()))
+newtype FromFormFieldOperation = FromFormFieldOperation (Record (FromFormFieldOpRow ()))
 
-derive instance Generic (FromFormFieldOperation a) _
-instance Show (FromFormFieldOperation a) where
+derive instance Generic FromFormFieldOperation _
+instance Show FromFormFieldOperation where
   show = genericShow
 
-newtype MultiplyOperation a = MultiplyOperation (Record ((MultiplyOpRow a) ()))
+newtype MultiplyOperation = MultiplyOperation (Record (MultiplyOpRow ()))
 
-derive instance Generic (MultiplyOperation a) _
-instance Show a => Show (MultiplyOperation a) where
+derive instance Generic MultiplyOperation _
+instance Show OpResult => Show MultiplyOperation where
   show = genericShow
 
-newtype NegateOperation a = NegateOperation (Record ((NegateOpRow a) ()))
+newtype NegateOperation = NegateOperation (Record (NegateOpRow ()))
 
-derive instance Generic (NegateOperation a) _
-instance Show a => Show (NegateOperation a) where
+derive instance Generic NegateOperation _
+instance Show OpResult => Show NegateOperation where
   show = genericShow
 
-newtype SubtractOperation a = SubtractOperation (Record ((SubtractOpRow a) ()))
+newtype SubtractOperation = SubtractOperation (Record (SubtractOpRow ()))
 
-derive instance Generic (SubtractOperation a) _
-instance Show a => Show (SubtractOperation a) where
+derive instance Generic SubtractOperation _
+instance Show OpResult => Show SubtractOperation where
   show = genericShow
 
-data Operation a
-  = FromArgumentOp (FromArgumentOperation a)
-  | FromConstantOp (FromConstantOperation a)
+data Operation
+  = AddOp AddOperation
+  | DivideOp DivideOperation
+  | FromArgumentOp FromArgumentOperation
+  | FromConstantOp FromConstantOperation
+  | FromFormFieldOp FromFormFieldOperation
+  | FromLocalStorageOp FromLocalStorageOperation
+  | FromSessionStorageOp FromSessionStorageOperation
+  | MultiplyOp MultiplyOperation
+  | NegateOp NegateOperation
+  | SubtractOp SubtractOperation
 
--- | FromFormFieldOp (FromFormFieldOperation a)
--- | FromLocalStorageOp (FromLocalStorageOperation a)
--- | FromSessionStorageOp (FromSessionStorageOperation a)
-
-derive instance Generic (Operation a) _
-instance Show a => Show (Operation a) where
+derive instance Generic Operation _
+instance Show OpResult => Show Operation where
   show = genericShow
 
--- createAddOp :: ∀ a. EuclideanRing a => Ord a => Array (Operation a) -> (Operation a)
--- createAddOp addends = AddOp (AddOperation { addends })
+fromString :: Maybe String -> Maybe OpResult
+fromString Nothing = Nothing
+fromString (Just s) = case I.fromString s of
+  (Just i) -> Just (OpInt i)
+  Nothing -> case N.fromString s of
+    (Just n) -> Just (OpNumber n)
+    Nothing -> Nothing
 
--- createDivideOp :: ∀ a. EuclideanRing a => Ord a => Calculation a -> Calculation a -> (Calculation a)
--- createDivideOp dividend divisor = DivideOp (DivideOperation { dividend, divisor })
+createAddOp :: Operation -> Operation -> Operation
+createAddOp leftAddend rightAddend = AddOp (AddOperation { leftAddend, rightAddend })
 
-createFromArgumentOp :: String -> Operation String
+createDivideOp :: Operation -> Operation -> Operation
+createDivideOp dividend divisor = DivideOp (DivideOperation { dividend, divisor })
+
+createFromArgumentOp :: Unit -> Operation
 createFromArgumentOp _ = FromArgumentOp (FromArgumentOperation {})
 
-createFromConstantOp :: ∀ a. EuclideanRing a => Ord a => a -> Operation a
+createFromConstantOp :: OpResult -> Operation
 createFromConstantOp operand = FromConstantOp (FromConstantOperation { operand })
 
--- createFromLocalStorageOp :: String -> Operation String
--- createFromLocalStorageOp key = FromLocalStorageOp (FromLocalStorageOperation { key })
+createFromLocalStorageOp :: String -> Operation
+createFromLocalStorageOp key = FromLocalStorageOp (FromLocalStorageOperation { key })
 
--- createFromSessionStorageOp :: String -> Operation String
--- createFromSessionStorageOp key = FromSessionStorageOp (FromSessionStorageOperation { key })
+createFromSessionStorageOp :: String -> Operation
+createFromSessionStorageOp key = FromSessionStorageOp (FromSessionStorageOperation { key })
 
--- createFromFormFieldOp
---   :: { classList :: Maybe (Array String)
---      , form :: Maybe String
---      , id :: Maybe String
---      , name :: Maybe String
---      , selector :: Maybe String
---      , tagName :: Maybe String
---      }
---   -> Operation String
--- createFromFormFieldOp record = FromFormFieldOp (FromFormFieldOperation record)
+createFromFormFieldOp
+  :: { classList :: Maybe (Array String)
+     , form :: Maybe String
+     , id :: Maybe String
+     , name :: Maybe String
+     , selector :: Maybe String
+     , tagName :: Maybe String
+     }
+  -> Operation
+createFromFormFieldOp record = FromFormFieldOp (FromFormFieldOperation record)
 
--- createMultiplyOp :: ∀ a. EuclideanRing a => Ord a => Array (Calculation a) -> (Calculation a)
--- createMultiplyOp multipliers = MultiplyOp (MultiplyOperation { multipliers })
+createMultiplyOp :: Operation -> Operation -> Operation
+createMultiplyOp multiplicand multiplier = MultiplyOp (MultiplyOperation { multiplicand, multiplier })
 
--- createNegateOp :: ∀ a. EuclideanRing a => Ord a => Calculation a -> (Calculation a)
--- createNegateOp operand = NegateOp (NegateOperation { operand })
+createNegateOp :: Operation -> Operation
+createNegateOp operand = NegateOp (NegateOperation { operand })
 
--- createSubtractOp :: ∀ a. EuclideanRing a => Ord a => Calculation a -> Calculation a -> (Calculation a)
--- createSubtractOp minuend subtrahend = SubtractOp (SubtractOperation { minuend, subtrahend })
+createSubtractOp :: Operation -> Operation -> Operation
+createSubtractOp minuend subtrahend = SubtractOp (SubtractOperation { minuend, subtrahend })
 
--- add :: ∀ a. EuclideanRing a => Ord a => (AddOperation a) -> Maybe a -> Effect (Either Error a)
--- add (AddOperation r) = (\v -> foldl (\x y -> x + (makeOperate y v)) zero r.addends)
+sum :: OpResult -> OpResult -> OpResult
+sum (OpInt x) (OpInt y) = OpInt $ if y == 0 then 0 else x + y
+sum (OpInt x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else (toNumber x) + y
+sum (OpNumber x) (OpInt y) = OpNumber $ if y == 0 then 0.0 else x + (toNumber y)
+sum (OpNumber x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else x + y
 
--- divide :: ∀ a. EuclideanRing a => Ord a => (DivideOperation a) -> Maybe a -> a
--- divide (DivideOperation r) = (\v -> (makeCalculate r.dividend v) / (makeCalculate r.divisor v))
+doTheAddition :: Either Error OpResult -> Either Error OpResult -> Either Error OpResult
+doTheAddition (Left e1) (Left e2) = Left (concat e1 e2)
+doTheAddition (Left e1) _ = Left e1
+doTheAddition _ (Left e2) = Left e2
+doTheAddition (Right x) (Right y) = Right (sum x y)
 
-get :: ∀ a. Ord a => (FromConstantOperation a) -> Maybe a -> Effect (Either Error a)
+add :: AddOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+add (AddOperation r) =
+  \v -> do
+    a1 <- makeOperate r.leftAddend v
+    a2 <- makeOperate r.rightAddend v
+    pure $ doTheAddition a1 a2
+
+div :: OpResult -> OpResult -> OpResult
+div (OpInt x) (OpInt y) = OpInt $ if y == 0 then 0 else x - y
+div (OpInt x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else (toNumber x) - y
+div (OpNumber x) (OpInt y) = OpNumber $ if y == 0 then 0.0 else x - (toNumber y)
+div (OpNumber x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else x - y
+
+doTheDivision :: Either Error OpResult -> Either Error OpResult -> Either Error OpResult
+doTheDivision (Left e1) (Left e2) = Left (concat e1 e2)
+doTheDivision (Left e1) _ = Left e1
+doTheDivision _ (Left e2) = Left e2
+doTheDivision (Right x) (Right y) = Right (div x y)
+
+divide :: DivideOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+divide (DivideOperation r) =
+  ( \v -> do
+      dd <- makeOperate r.dividend v
+      dr <- makeOperate r.divisor v
+      pure $ doTheDivision dd dr
+  )
+
+get :: FromConstantOperation -> Maybe OpResult -> Effect (Either Error OpResult)
 get (FromConstantOperation r) = (\_ -> pure $ Right r.operand)
 
-getArgValue :: ∀ a. Maybe a -> Effect (Either Error a)
+getArgValue :: Maybe OpResult -> Effect (Either Error OpResult)
 getArgValue (Just v) = pure $ Right v
 getArgValue Nothing = pure $ Left (Error [ "Missing argument." ])
 
-getFromArgument :: ∀ a. Ord a => FromArgumentOperation a -> Maybe a -> Effect (Either Error a)
+getFromArgument :: FromArgumentOperation -> Maybe OpResult -> Effect (Either Error OpResult)
 getFromArgument (FromArgumentOperation {}) = getArgValue
 
--- getFromLocalStorage :: ∀ a. EuclideanRing a => Ord a => FromLocalStorageOperation String -> Maybe a -> Effect (Either Error String)
--- getFromLocalStorage (FromLocalStorageOperation { key }) _ = do
---   w <- window
---   s <- localStorage w
---   i <- getItem key s
---   pure (note (Error [ "Cannot get value for `" <> key <> "` from local storage." ]) i)
+getFromLocalStorage :: FromLocalStorageOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+getFromLocalStorage (FromLocalStorageOperation { key }) _ = do
+  w <- window
+  s <- localStorage w
+  i <- getItem key s
+  pure (note (Error [ "Cannot get value for `" <> key <> "` from local storage." ]) (fromString i))
 
--- getFromSessionStorage :: ∀ a. FromSessionStorageOperation String -> Maybe a -> Effect (Either Error String)
--- getFromSessionStorage (FromSessionStorageOperation { key }) _ = do
---   w <- window
---   s <- sessionStorage w
---   i <- getItem key s
---   pure (note (Error [ "Cannot get value for `" <> key <> "` from session storage." ]) i)
+getFromSessionStorage :: FromSessionStorageOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+getFromSessionStorage (FromSessionStorageOperation { key }) _ = do
+  w <- window
+  s <- sessionStorage w
+  i <- getItem key s
+  pure (note (Error [ "Cannot get value for `" <> key <> "` from session storage." ]) (fromString i))
 
 createClassListSelector :: Maybe (Array String) -> String
 createClassListSelector Nothing = ""
@@ -225,7 +299,7 @@ createTagNameSelector :: Maybe String -> String
 createTagNameSelector (Just s) = s
 createTagNameSelector Nothing = ""
 
-createQuerySelector :: ∀ a. FromFormFieldOperation a -> Either Error QuerySelector
+createQuerySelector :: FromFormFieldOperation -> Either Error QuerySelector
 createQuerySelector
   ( FromFormFieldOperation
       { classList: Nothing
@@ -257,30 +331,84 @@ selectFromDocument (Right sel) doc = do
   pure (note (Error [ "Cannot find element using selector `" <> showQS sel <> "`." ]) (m >>= fromElement))
 selectFromDocument (Left err) _ = pure (Left err)
 
-getValue :: (Either Error HTMLInputElement) -> Effect (Either Error String)
-getValue (Right el) = Right <$> (value el)
+getValue :: (Either Error HTMLInputElement) -> Effect (Either Error OpResult)
+getValue (Right el) = do
+  v <- value el
+  case fromString (Just v) of
+    (Just n) -> pure (Right n)
+    Nothing -> pure (Left (Error [ "Cannot retrieve value from form input." ]))
 getValue (Left err) = pure (Left err)
 
--- getFromFormField :: ∀ a. FromFormFieldOperation a -> Maybe a -> Effect (Either Error String)
--- getFromFormField rec _ = do
---   w <- window
---   d <- document w
---   i <- selectFromDocument (createQuerySelector rec) d
---   getValue i
+getFromFormField :: FromFormFieldOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+getFromFormField rec _ = do
+  w <- window
+  d <- document w
+  i <- selectFromDocument (createQuerySelector rec) d
+  getValue i
 
--- multiply :: ∀ a. EuclideanRing a => Ord a => (MultiplyOperation a) -> Maybe a -> a
--- multiply (MultiplyOperation r) = (\v -> foldl (\x y -> x * (makeCalculate y v)) one r.multipliers)
+mult :: OpResult -> OpResult -> OpResult
+mult (OpInt x) (OpInt y) = OpInt $ if y == 0 then 0 else x * y
+mult (OpInt x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else (toNumber x) * y
+mult (OpNumber x) (OpInt y) = OpNumber $ if y == 0 then 0.0 else x * (toNumber y)
+mult (OpNumber x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else x * y
 
--- negate :: ∀ a. EuclideanRing a => Ord a => (NegateOperation a) -> Maybe a -> a
--- negate (NegateOperation r) = (\v -> Ring.negate (makeCalculate r.operand v))
+doTheMultiplication :: Either Error OpResult -> Either Error OpResult -> Either Error OpResult
+doTheMultiplication (Left e1) (Left e2) = Left (concat e1 e2)
+doTheMultiplication (Left e1) _ = Left e1
+doTheMultiplication _ (Left e2) = Left e2
+doTheMultiplication (Right x) (Right y) = Right (mult x y)
 
--- subtract :: ∀ a. EuclideanRing a => Ord a => (SubtractOperation a) -> Maybe a -> a
--- subtract (SubtractOperation r) = (\v -> (makeCalculate r.minuend v) - (makeCalculate r.subtrahend v))
+multiply :: MultiplyOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+multiply (MultiplyOperation r) =
+  \v -> do
+    a1 <- makeOperate r.multiplicand v
+    a2 <- makeOperate r.multiplier v
+    pure $ doTheMultiplication a1 a2
 
-makeOperate :: ∀ a. Ord a => Operation a -> Maybe a -> Effect (Either Error a)
+neg :: OpResult -> OpResult
+neg (OpInt o) = OpInt $ Ring.negate o
+neg (OpNumber o) = OpNumber $ Ring.negate o
+
+doTheNegation :: Either Error OpResult -> Either Error OpResult
+doTheNegation (Left e) = Left e
+doTheNegation (Right x) = Right (neg x)
+
+negate :: NegateOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+negate (NegateOperation r) =
+  ( \v -> do
+      o <- makeOperate r.operand v
+      pure $ doTheNegation o
+  )
+
+sub :: OpResult -> OpResult -> OpResult
+sub (OpInt x) (OpInt y) = OpInt $ x - y
+sub (OpInt x) (OpNumber y) = OpNumber $ (toNumber x) - y
+sub (OpNumber x) (OpInt y) = OpNumber $ x - (toNumber y)
+sub (OpNumber x) (OpNumber y) = OpNumber $ x - y
+
+doTheSubtraction :: Either Error OpResult -> Either Error OpResult -> Either Error OpResult
+doTheSubtraction (Left e1) (Left e2) = Left (concat e1 e2)
+doTheSubtraction (Left e1) _ = Left e1
+doTheSubtraction _ (Left e2) = Left e2
+doTheSubtraction (Right x) (Right y) = Right (sub x y)
+
+subtract :: SubtractOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+subtract (SubtractOperation r) =
+  ( \v -> do
+      m <- makeOperate r.minuend v
+      s <- makeOperate r.subtrahend v
+      pure $ doTheSubtraction m s
+  )
+
+makeOperate :: Operation -> Maybe OpResult -> Effect (Either Error OpResult)
+makeOperate (AddOp op) = add op
+makeOperate (DivideOp op) = divide op
 makeOperate (FromArgumentOp op) = getFromArgument op
 makeOperate (FromConstantOp op) = get op
--- makeOperate (FromLocalStorageOp op) = getFromLocalStorage op
--- makeOperate (FromSessionStorageOp op) = getFromSessionStorage op
--- makeOperate (FromFormFieldOp op) = getFromFormField op
+makeOperate (FromLocalStorageOp op) = getFromLocalStorage op
+makeOperate (FromSessionStorageOp op) = getFromSessionStorage op
+makeOperate (FromFormFieldOp op) = getFromFormField op
+makeOperate (MultiplyOp op) = multiply op
+makeOperate (NegateOp op) = negate op
+makeOperate (SubtractOp op) = subtract op
 

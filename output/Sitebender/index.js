@@ -1,16 +1,21 @@
 import * as Control_Applicative from "../Control.Applicative/index.js";
 import * as Control_Bind from "../Control.Bind/index.js";
+import * as Data_Array from "../Data.Array/index.js";
 import * as Data_Either from "../Data.Either/index.js";
-import * as Data_Functor from "../Data.Functor/index.js";
 import * as Data_Generic_Rep from "../Data.Generic.Rep/index.js";
+import * as Data_Int from "../Data.Int/index.js";
 import * as Data_Maybe from "../Data.Maybe/index.js";
+import * as Data_Number from "../Data.Number/index.js";
 import * as Data_Show from "../Data.Show/index.js";
 import * as Data_Show_Generic from "../Data.Show.Generic/index.js";
 import * as Data_String_Common from "../Data.String.Common/index.js";
 import * as Effect from "../Effect/index.js";
 import * as Web_DOM_ParentNode from "../Web.DOM.ParentNode/index.js";
+import * as Web_HTML from "../Web.HTML/index.js";
 import * as Web_HTML_HTMLDocument from "../Web.HTML.HTMLDocument/index.js";
 import * as Web_HTML_HTMLInputElement from "../Web.HTML.HTMLInputElement/index.js";
+import * as Web_HTML_Window from "../Web.HTML.Window/index.js";
+import * as Web_Storage_Storage from "../Web.Storage.Storage/index.js";
 var showRecord = /* #__PURE__ */ Data_Show.showRecord()();
 var genericShowConstructor = /* #__PURE__ */ Data_Show_Generic.genericShowConstructor(/* #__PURE__ */ Data_Show_Generic.genericShowArgsArgument(/* #__PURE__ */ showRecord(/* #__PURE__ */ Data_Show.showRecordFieldsConsNil({
     reflectSymbol: function () {
@@ -29,32 +34,12 @@ var FromConstantOperationIsSymbol = {
         return "FromConstantOperation";
     }
 };
-var FromConstantOpIsSymbol = {
-    reflectSymbol: function () {
-        return "FromConstantOp";
-    }
-};
-var showRecordFieldsConsNil1 = /* #__PURE__ */ Data_Show.showRecordFieldsConsNil({
-    reflectSymbol: function () {
-        return "multipliers";
-    }
-});
-var MultiplyOperationIsSymbol = {
-    reflectSymbol: function () {
-        return "MultiplyOperation";
-    }
-};
-var NegateOperationIsSymbol = {
-    reflectSymbol: function () {
-        return "NegateOperation";
-    }
-};
 var showRecordFieldsCons = /* #__PURE__ */ Data_Show.showRecordFieldsCons({
     reflectSymbol: function () {
         return "minuend";
     }
 });
-var showRecordFieldsConsNil2 = /* #__PURE__ */ Data_Show.showRecordFieldsConsNil({
+var showRecordFieldsConsNil1 = /* #__PURE__ */ Data_Show.showRecordFieldsConsNil({
     reflectSymbol: function () {
         return "subtrahend";
     }
@@ -64,7 +49,57 @@ var SubtractOperationIsSymbol = {
         return "SubtractOperation";
     }
 };
+var AddOpIsSymbol = {
+    reflectSymbol: function () {
+        return "AddOp";
+    }
+};
+var DivideOpIsSymbol = {
+    reflectSymbol: function () {
+        return "DivideOp";
+    }
+};
+var FromConstantOpIsSymbol = {
+    reflectSymbol: function () {
+        return "FromConstantOp";
+    }
+};
+var MultiplyOpIsSymbol = {
+    reflectSymbol: function () {
+        return "MultiplyOp";
+    }
+};
+var NegateOpIsSymbol = {
+    reflectSymbol: function () {
+        return "NegateOp";
+    }
+};
+var SubtractOpIsSymbol = {
+    reflectSymbol: function () {
+        return "SubtractOp";
+    }
+};
+var NegateOperationIsSymbol = {
+    reflectSymbol: function () {
+        return "NegateOperation";
+    }
+};
 var showRecordFieldsCons1 = /* #__PURE__ */ Data_Show.showRecordFieldsCons({
+    reflectSymbol: function () {
+        return "multiplicand";
+    }
+});
+var showRecordFieldsConsNil2 = /* #__PURE__ */ Data_Show.showRecordFieldsConsNil({
+    reflectSymbol: function () {
+        return "multiplier";
+    }
+});
+var MultiplyOperationIsSymbol = {
+    reflectSymbol: function () {
+        return "MultiplyOperation";
+    }
+};
+var showRecordFieldsCons2 = /* #__PURE__ */ Data_Show.showRecordFieldsCons({
     reflectSymbol: function () {
         return "dividend";
     }
@@ -79,9 +114,14 @@ var DivideOperationIsSymbol = {
         return "DivideOperation";
     }
 };
+var showRecordFieldsCons3 = /* #__PURE__ */ Data_Show.showRecordFieldsCons({
+    reflectSymbol: function () {
+        return "leftAddend";
+    }
+});
 var showRecordFieldsConsNil4 = /* #__PURE__ */ Data_Show.showRecordFieldsConsNil({
     reflectSymbol: function () {
-        return "addends";
+        return "rightAddend";
     }
 });
 var AddOperationIsSymbol = {
@@ -91,7 +131,24 @@ var AddOperationIsSymbol = {
 };
 var pure = /* #__PURE__ */ Control_Applicative.pure(Effect.applicativeEffect);
 var bind1 = /* #__PURE__ */ Control_Bind.bind(Data_Maybe.bindMaybe);
-var map = /* #__PURE__ */ Data_Functor.map(Effect.functorEffect);
+var OpInt = /* #__PURE__ */ (function () {
+    function OpInt(value0) {
+        this.value0 = value0;
+    };
+    OpInt.create = function (value0) {
+        return new OpInt(value0);
+    };
+    return OpInt;
+})();
+var OpNumber = /* #__PURE__ */ (function () {
+    function OpNumber(value0) {
+        this.value0 = value0;
+    };
+    OpNumber.create = function (value0) {
+        return new OpNumber(value0);
+    };
+    return OpNumber;
+})();
 var FromSessionStorageOperation = function (x) {
     return x;
 };
@@ -107,6 +164,27 @@ var FromConstantOperation = function (x) {
 var FromArgumentOperation = function (x) {
     return x;
 };
+var $$Error = function (x) {
+    return x;
+};
+var AddOp = /* #__PURE__ */ (function () {
+    function AddOp(value0) {
+        this.value0 = value0;
+    };
+    AddOp.create = function (value0) {
+        return new AddOp(value0);
+    };
+    return AddOp;
+})();
+var DivideOp = /* #__PURE__ */ (function () {
+    function DivideOp(value0) {
+        this.value0 = value0;
+    };
+    DivideOp.create = function (value0) {
+        return new DivideOp(value0);
+    };
+    return DivideOp;
+})();
 var FromArgumentOp = /* #__PURE__ */ (function () {
     function FromArgumentOp(value0) {
         this.value0 = value0;
@@ -125,6 +203,66 @@ var FromConstantOp = /* #__PURE__ */ (function () {
     };
     return FromConstantOp;
 })();
+var FromFormFieldOp = /* #__PURE__ */ (function () {
+    function FromFormFieldOp(value0) {
+        this.value0 = value0;
+    };
+    FromFormFieldOp.create = function (value0) {
+        return new FromFormFieldOp(value0);
+    };
+    return FromFormFieldOp;
+})();
+var FromLocalStorageOp = /* #__PURE__ */ (function () {
+    function FromLocalStorageOp(value0) {
+        this.value0 = value0;
+    };
+    FromLocalStorageOp.create = function (value0) {
+        return new FromLocalStorageOp(value0);
+    };
+    return FromLocalStorageOp;
+})();
+var FromSessionStorageOp = /* #__PURE__ */ (function () {
+    function FromSessionStorageOp(value0) {
+        this.value0 = value0;
+    };
+    FromSessionStorageOp.create = function (value0) {
+        return new FromSessionStorageOp(value0);
+    };
+    return FromSessionStorageOp;
+})();
+var MultiplyOp = /* #__PURE__ */ (function () {
+    function MultiplyOp(value0) {
+        this.value0 = value0;
+    };
+    MultiplyOp.create = function (value0) {
+        return new MultiplyOp(value0);
+    };
+    return MultiplyOp;
+})();
+var NegateOp = /* #__PURE__ */ (function () {
+    function NegateOp(value0) {
+        this.value0 = value0;
+    };
+    NegateOp.create = function (value0) {
+        return new NegateOp(value0);
+    };
+    return NegateOp;
+})();
+var SubtractOp = /* #__PURE__ */ (function () {
+    function SubtractOp(value0) {
+        this.value0 = value0;
+    };
+    SubtractOp.create = function (value0) {
+        return new SubtractOp(value0);
+    };
+    return SubtractOp;
+})();
+var AddOperation = function (x) {
+    return x;
+};
+var DivideOperation = function (x) {
+    return x;
+};
 var MultiplyOperation = function (x) {
     return x;
 };
@@ -132,18 +270,6 @@ var NegateOperation = function (x) {
     return x;
 };
 var SubtractOperation = function (x) {
-    return x;
-};
-
-// import Web.HTML.Window (document, localStorage, sessionStorage)
-// import Web.Storage.Storage (getItem)
-var $$Error = function (x) {
-    return x;
-};
-var DivideOperation = function (x) {
-    return x;
-};
-var AddOperation = function (x) {
     return x;
 };
 var genericSubtractOperation_ = {
@@ -155,31 +281,106 @@ var genericSubtractOperation_ = {
     }
 };
 var genericShow = /* #__PURE__ */ Data_Show_Generic.genericShow(genericSubtractOperation_);
-
-// | FromFormFieldOp (FromFormFieldOperation a)
-// | FromLocalStorageOp (FromLocalStorageOperation a)
-// | FromSessionStorageOp (FromSessionStorageOperation a)
 var genericOperation_ = {
     to: function (x) {
         if (x instanceof Data_Generic_Rep.Inl) {
-            return new FromArgumentOp(x.value0);
+            return new AddOp(x.value0);
         };
-        if (x instanceof Data_Generic_Rep.Inr) {
-            return new FromConstantOp(x.value0);
+        if (x instanceof Data_Generic_Rep.Inr && x.value0 instanceof Data_Generic_Rep.Inl) {
+            return new DivideOp(x.value0.value0);
         };
-        throw new Error("Failed pattern match at Sitebender (line 135, column 1 - line 135, column 40): " + [ x.constructor.name ]);
+        if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0 instanceof Data_Generic_Rep.Inl)) {
+            return new FromArgumentOp(x.value0.value0.value0);
+        };
+        if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0.value0 instanceof Data_Generic_Rep.Inl))) {
+            return new FromConstantOp(x.value0.value0.value0.value0);
+        };
+        if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inl)))) {
+            return new FromFormFieldOp(x.value0.value0.value0.value0.value0);
+        };
+        if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inl))))) {
+            return new FromLocalStorageOp(x.value0.value0.value0.value0.value0.value0);
+        };
+        if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inl)))))) {
+            return new FromSessionStorageOp(x.value0.value0.value0.value0.value0.value0.value0);
+        };
+        if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inl))))))) {
+            return new MultiplyOp(x.value0.value0.value0.value0.value0.value0.value0.value0);
+        };
+        if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inl)))))))) {
+            return new NegateOp(x.value0.value0.value0.value0.value0.value0.value0.value0.value0);
+        };
+        if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr)))))))) {
+            return new SubtractOp(x.value0.value0.value0.value0.value0.value0.value0.value0.value0);
+        };
+        throw new Error("Failed pattern match at Sitebender (line 168, column 1 - line 168, column 36): " + [ x.constructor.name ]);
     },
     from: function (x) {
-        if (x instanceof FromArgumentOp) {
+        if (x instanceof AddOp) {
             return new Data_Generic_Rep.Inl(x.value0);
         };
-        if (x instanceof FromConstantOp) {
-            return new Data_Generic_Rep.Inr(x.value0);
+        if (x instanceof DivideOp) {
+            return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inl(x.value0));
         };
-        throw new Error("Failed pattern match at Sitebender (line 135, column 1 - line 135, column 40): " + [ x.constructor.name ]);
+        if (x instanceof FromArgumentOp) {
+            return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inl(x.value0)));
+        };
+        if (x instanceof FromConstantOp) {
+            return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inl(x.value0))));
+        };
+        if (x instanceof FromFormFieldOp) {
+            return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inl(x.value0)))));
+        };
+        if (x instanceof FromLocalStorageOp) {
+            return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inl(x.value0))))));
+        };
+        if (x instanceof FromSessionStorageOp) {
+            return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inl(x.value0)))))));
+        };
+        if (x instanceof MultiplyOp) {
+            return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inl(x.value0))))))));
+        };
+        if (x instanceof NegateOp) {
+            return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inl(x.value0)))))))));
+        };
+        if (x instanceof SubtractOp) {
+            return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(x.value0)))))))));
+        };
+        throw new Error("Failed pattern match at Sitebender (line 168, column 1 - line 168, column 36): " + [ x.constructor.name ]);
     }
 };
 var genericShow1 = /* #__PURE__ */ Data_Show_Generic.genericShow(genericOperation_);
+var genericOpResult_ = {
+    to: function (x) {
+        if (x instanceof Data_Generic_Rep.Inl) {
+            return new OpInt(x.value0);
+        };
+        if (x instanceof Data_Generic_Rep.Inr) {
+            return new OpNumber(x.value0);
+        };
+        throw new Error("Failed pattern match at Sitebender (line 73, column 1 - line 73, column 35): " + [ x.constructor.name ]);
+    },
+    from: function (x) {
+        if (x instanceof OpInt) {
+            return new Data_Generic_Rep.Inl(x.value0);
+        };
+        if (x instanceof OpNumber) {
+            return new Data_Generic_Rep.Inr(x.value0);
+        };
+        throw new Error("Failed pattern match at Sitebender (line 73, column 1 - line 73, column 35): " + [ x.constructor.name ]);
+    }
+};
+var showOpResult = {
+    show: /* #__PURE__ */ Data_Show_Generic.genericShow(genericOpResult_)(/* #__PURE__ */ Data_Show_Generic.genericShowSum(/* #__PURE__ */ Data_Show_Generic.genericShowConstructor(/* #__PURE__ */ Data_Show_Generic.genericShowArgsArgument(Data_Show.showInt))({
+        reflectSymbol: function () {
+            return "OpInt";
+        }
+    }))(/* #__PURE__ */ Data_Show_Generic.genericShowConstructor(/* #__PURE__ */ Data_Show_Generic.genericShowArgsArgument(Data_Show.showNumber))({
+        reflectSymbol: function () {
+            return "OpNumber";
+        }
+    })))
+};
 var genericNegateOperation_ = {
     to: function (x) {
         return x;
@@ -213,6 +414,11 @@ var showFromSessionStorageOpe = {
         }
     }))
 };
+var genericShowSum = /* #__PURE__ */ Data_Show_Generic.genericShowSum(/* #__PURE__ */ Data_Show_Generic.genericShowConstructor(/* #__PURE__ */ Data_Show_Generic.genericShowArgsArgument(showFromSessionStorageOpe))({
+    reflectSymbol: function () {
+        return "FromSessionStorageOp";
+    }
+}));
 var genericFromLocalStorageOp = {
     to: function (x) {
         return x;
@@ -228,6 +434,11 @@ var showFromLocalStorageOpera = {
         }
     }))
 };
+var genericShowSum1 = /* #__PURE__ */ Data_Show_Generic.genericShowSum(/* #__PURE__ */ Data_Show_Generic.genericShowConstructor(/* #__PURE__ */ Data_Show_Generic.genericShowArgsArgument(showFromLocalStorageOpera))({
+    reflectSymbol: function () {
+        return "FromLocalStorageOp";
+    }
+}));
 var genericFromFormFieldOpera = {
     to: function (x) {
         return x;
@@ -267,6 +478,11 @@ var showFromFormFieldOperatio = {
         }
     }))
 };
+var genericShowSum2 = /* #__PURE__ */ Data_Show_Generic.genericShowSum(/* #__PURE__ */ Data_Show_Generic.genericShowConstructor(/* #__PURE__ */ Data_Show_Generic.genericShowArgsArgument(showFromFormFieldOperatio))({
+    reflectSymbol: function () {
+        return "FromFormFieldOp";
+    }
+}));
 var genericFromConstantOperat = {
     to: function (x) {
         return x;
@@ -296,32 +512,11 @@ var showFromArgumentOperation = {
         }
     }))
 };
-var genericShowSum = /* #__PURE__ */ Data_Show_Generic.genericShowSum(/* #__PURE__ */ Data_Show_Generic.genericShowConstructor(/* #__PURE__ */ Data_Show_Generic.genericShowArgsArgument(showFromArgumentOperation))({
+var genericShowSum3 = /* #__PURE__ */ Data_Show_Generic.genericShowSum(/* #__PURE__ */ Data_Show_Generic.genericShowConstructor(/* #__PURE__ */ Data_Show_Generic.genericShowArgsArgument(showFromArgumentOperation))({
     reflectSymbol: function () {
         return "FromArgumentOp";
     }
 }));
-var showOperation = function (dictShow) {
-    return {
-        show: genericShow1(genericShowSum(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showFromConstantOperation(dictShow)))(FromConstantOpIsSymbol)))
-    };
-};
-var showMultiplyOperation = function (dictShow) {
-    return {
-        show: genericShow3(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showRecord(showRecordFieldsConsNil1(Data_Show.showArray(showOperation(dictShow))))))(MultiplyOperationIsSymbol))
-    };
-};
-var showNegateOperation = function (dictShow) {
-    return {
-        show: genericShow2(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showRecord(showRecordFieldsConsNil(showOperation(dictShow)))))(NegateOperationIsSymbol))
-    };
-};
-var showSubtractOperation = function (dictShow) {
-    var showOperation1 = showOperation(dictShow);
-    return {
-        show: genericShow(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showRecord(showRecordFieldsCons(showRecordFieldsConsNil2(showOperation1))(showOperation1))))(SubtractOperationIsSymbol))
-    };
-};
 var genericError_ = {
     to: function (x) {
         return x;
@@ -346,12 +541,6 @@ var genericDivideOperation_ = {
     }
 };
 var genericShow5 = /* #__PURE__ */ Data_Show_Generic.genericShow(genericDivideOperation_);
-var showDivideOperation = function (dictShow) {
-    var showOperation1 = showOperation(dictShow);
-    return {
-        show: genericShow5(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showRecord(showRecordFieldsCons1(showRecordFieldsConsNil3(showOperation1))(showOperation1))))(DivideOperationIsSymbol))
-    };
-};
 var genericAddOperation_ = {
     to: function (x) {
         return x;
@@ -361,9 +550,92 @@ var genericAddOperation_ = {
     }
 };
 var genericShow6 = /* #__PURE__ */ Data_Show_Generic.genericShow(genericAddOperation_);
+var showSubtractOperation = function (dictShow) {
+    return {
+        show: genericShow(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showRecord(showRecordFieldsCons(showRecordFieldsConsNil1(showOperation(dictShow)))(showOperation(dictShow)))))(SubtractOperationIsSymbol))
+    };
+};
+var showOperation = function (dictShow) {
+    return {
+        show: genericShow1(Data_Show_Generic.genericShowSum(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showAddOperation(dictShow)))(AddOpIsSymbol))(Data_Show_Generic.genericShowSum(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showDivideOperation(dictShow)))(DivideOpIsSymbol))(genericShowSum3(Data_Show_Generic.genericShowSum(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showFromConstantOperation(dictShow)))(FromConstantOpIsSymbol))(genericShowSum2(genericShowSum1(genericShowSum(Data_Show_Generic.genericShowSum(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showMultiplyOperation(dictShow)))(MultiplyOpIsSymbol))(Data_Show_Generic.genericShowSum(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showNegateOperation(dictShow)))(NegateOpIsSymbol))(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showSubtractOperation(dictShow)))(SubtractOpIsSymbol)))))))))))
+    };
+};
+var showNegateOperation = function (dictShow) {
+    return {
+        show: genericShow2(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showRecord(showRecordFieldsConsNil(showOperation(dictShow)))))(NegateOperationIsSymbol))
+    };
+};
+var showMultiplyOperation = function (dictShow) {
+    return {
+        show: genericShow3(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showRecord(showRecordFieldsCons1(showRecordFieldsConsNil2(showOperation(dictShow)))(showOperation(dictShow)))))(MultiplyOperationIsSymbol))
+    };
+};
+var showDivideOperation = function (dictShow) {
+    return {
+        show: genericShow5(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showRecord(showRecordFieldsCons2(showRecordFieldsConsNil3(showOperation(dictShow)))(showOperation(dictShow)))))(DivideOperationIsSymbol))
+    };
+};
 var showAddOperation = function (dictShow) {
     return {
-        show: genericShow6(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showRecord(showRecordFieldsConsNil4(Data_Show.showArray(showOperation(dictShow))))))(AddOperationIsSymbol))
+        show: genericShow6(Data_Show_Generic.genericShowConstructor(Data_Show_Generic.genericShowArgsArgument(showRecord(showRecordFieldsCons3(showRecordFieldsConsNil4(showOperation(dictShow)))(showOperation(dictShow)))))(AddOperationIsSymbol))
+    };
+};
+var sum = function (v) {
+    return function (v1) {
+        if (v instanceof OpInt && v1 instanceof OpInt) {
+            return new OpInt((function () {
+                var $371 = v1.value0 === 0;
+                if ($371) {
+                    return 0;
+                };
+                return v.value0 + v1.value0 | 0;
+            })());
+        };
+        if (v instanceof OpInt && v1 instanceof OpNumber) {
+            return new OpNumber((function () {
+                var $374 = v1.value0 === 0.0;
+                if ($374) {
+                    return 0.0;
+                };
+                return Data_Int.toNumber(v.value0) + v1.value0;
+            })());
+        };
+        if (v instanceof OpNumber && v1 instanceof OpInt) {
+            return new OpNumber((function () {
+                var $377 = v1.value0 === 0;
+                if ($377) {
+                    return 0.0;
+                };
+                return v.value0 + Data_Int.toNumber(v1.value0);
+            })());
+        };
+        if (v instanceof OpNumber && v1 instanceof OpNumber) {
+            return new OpNumber((function () {
+                var $380 = v1.value0 === 0.0;
+                if ($380) {
+                    return 0.0;
+                };
+                return v.value0 + v1.value0;
+            })());
+        };
+        throw new Error("Failed pattern match at Sitebender (line 218, column 1 - line 218, column 40): " + [ v.constructor.name, v1.constructor.name ]);
+    };
+};
+var sub = function (v) {
+    return function (v1) {
+        if (v instanceof OpInt && v1 instanceof OpInt) {
+            return new OpInt(v.value0 - v1.value0 | 0);
+        };
+        if (v instanceof OpInt && v1 instanceof OpNumber) {
+            return new OpNumber(Data_Int.toNumber(v.value0) - v1.value0);
+        };
+        if (v instanceof OpNumber && v1 instanceof OpInt) {
+            return new OpNumber(v.value0 - Data_Int.toNumber(v1.value0));
+        };
+        if (v instanceof OpNumber && v1 instanceof OpNumber) {
+            return new OpNumber(v.value0 - v1.value0);
+        };
+        throw new Error("Failed pattern match at Sitebender (line 383, column 1 - line 383, column 40): " + [ v.constructor.name, v1.constructor.name ]);
     };
 };
 var showQS = function (v) {
@@ -381,17 +653,58 @@ var selectFromDocument = function (v) {
         if (v instanceof Data_Either.Left) {
             return pure(new Data_Either.Left(v.value0));
         };
-        throw new Error("Failed pattern match at Sitebender (line 253, column 1 - line 253, column 109): " + [ v.constructor.name, v1.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 327, column 1 - line 327, column 109): " + [ v.constructor.name, v1.constructor.name ]);
     };
 };
-var getValue = function (v) {
-    if (v instanceof Data_Either.Right) {
-        return map(Data_Either.Right.create)(Web_HTML_HTMLInputElement.value(v.value0));
+var neg = function (v) {
+    if (v instanceof OpInt) {
+        return new OpInt(-v.value0 | 0);
     };
-    if (v instanceof Data_Either.Left) {
-        return pure(new Data_Either.Left(v.value0));
+    if (v instanceof OpNumber) {
+        return new OpNumber(-v.value0);
     };
-    throw new Error("Failed pattern match at Sitebender (line 260, column 1 - line 260, column 76): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 368, column 1 - line 368, column 28): " + [ v.constructor.name ]);
+};
+var mult = function (v) {
+    return function (v1) {
+        if (v instanceof OpInt && v1 instanceof OpInt) {
+            return new OpInt((function () {
+                var $403 = v1.value0 === 0;
+                if ($403) {
+                    return 0;
+                };
+                return v.value0 * v1.value0 | 0;
+            })());
+        };
+        if (v instanceof OpInt && v1 instanceof OpNumber) {
+            return new OpNumber((function () {
+                var $406 = v1.value0 === 0.0;
+                if ($406) {
+                    return 0.0;
+                };
+                return Data_Int.toNumber(v.value0) * v1.value0;
+            })());
+        };
+        if (v instanceof OpNumber && v1 instanceof OpInt) {
+            return new OpNumber((function () {
+                var $409 = v1.value0 === 0;
+                if ($409) {
+                    return 0.0;
+                };
+                return v.value0 * Data_Int.toNumber(v1.value0);
+            })());
+        };
+        if (v instanceof OpNumber && v1 instanceof OpNumber) {
+            return new OpNumber((function () {
+                var $412 = v1.value0 === 0.0;
+                if ($412) {
+                    return 0.0;
+                };
+                return v.value0 * v1.value0;
+            })());
+        };
+        throw new Error("Failed pattern match at Sitebender (line 349, column 1 - line 349, column 41): " + [ v.constructor.name, v1.constructor.name ]);
+    };
 };
 var getArgValue = function (v) {
     if (v instanceof Data_Maybe.Just) {
@@ -400,69 +713,126 @@ var getArgValue = function (v) {
     if (v instanceof Data_Maybe.Nothing) {
         return pure(new Data_Either.Left([ "Missing argument." ]));
     };
-    throw new Error("Failed pattern match at Sitebender (line 186, column 1 - line 186, column 55): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 260, column 1 - line 260, column 64): " + [ v.constructor.name ]);
 };
-var getFromArgument = function (dictOrd) {
-    return function (v) {
-        return getArgValue;
+var getFromArgument = function (v) {
+    return getArgValue;
+};
+var get = function (v) {
+    return function (v1) {
+        return pure(new Data_Either.Right(v.operand));
     };
 };
-
-// createFromLocalStorageOp :: String -> Operation String
-// createFromLocalStorageOp key = FromLocalStorageOp (FromLocalStorageOperation { key })
-// createFromSessionStorageOp :: String -> Operation String
-// createFromSessionStorageOp key = FromSessionStorageOp (FromSessionStorageOperation { key })
-// createFromFormFieldOp
-//   :: { classList :: Maybe (Array String)
-//      , form :: Maybe String
-//      , id :: Maybe String
-//      , name :: Maybe String
-//      , selector :: Maybe String
-//      , tagName :: Maybe String
-//      }
-//   -> Operation String
-// createFromFormFieldOp record = FromFormFieldOp (FromFormFieldOperation record)
-// createMultiplyOp :: ∀ a. EuclideanRing a => Ord a => Array (Calculation a) -> (Calculation a)
-// createMultiplyOp multipliers = MultiplyOp (MultiplyOperation { multipliers })
-// createNegateOp :: ∀ a. EuclideanRing a => Ord a => Calculation a -> (Calculation a)
-// createNegateOp operand = NegateOp (NegateOperation { operand })
-// createSubtractOp :: ∀ a. EuclideanRing a => Ord a => Calculation a -> Calculation a -> (Calculation a)
-// createSubtractOp minuend subtrahend = SubtractOp (SubtractOperation { minuend, subtrahend })
-// add :: ∀ a. EuclideanRing a => Ord a => (AddOperation a) -> Maybe a -> Effect (Either Error a)
-// add (AddOperation r) = (\v -> foldl (\x y -> x + (makeOperate y v)) zero r.addends)
-// divide :: ∀ a. EuclideanRing a => Ord a => (DivideOperation a) -> Maybe a -> a
-// divide (DivideOperation r) = (\v -> (makeCalculate r.dividend v) / (makeCalculate r.divisor v))
-var get = function (dictOrd) {
-    return function (v) {
-        return function (v1) {
-            return pure(new Data_Either.Right(v.operand));
+var fromString = function (v) {
+    if (v instanceof Data_Maybe.Nothing) {
+        return Data_Maybe.Nothing.value;
+    };
+    if (v instanceof Data_Maybe.Just) {
+        var v1 = Data_Int.fromString(v.value0);
+        if (v1 instanceof Data_Maybe.Just) {
+            return new Data_Maybe.Just(new OpInt(v1.value0));
+        };
+        if (v1 instanceof Data_Maybe.Nothing) {
+            var v2 = Data_Number.fromString(v.value0);
+            if (v2 instanceof Data_Maybe.Just) {
+                return new Data_Maybe.Just(new OpNumber(v2.value0));
+            };
+            if (v2 instanceof Data_Maybe.Nothing) {
+                return Data_Maybe.Nothing.value;
+            };
+            throw new Error("Failed pattern match at Sitebender (line 176, column 14 - line 178, column 23): " + [ v2.constructor.name ]);
+        };
+        throw new Error("Failed pattern match at Sitebender (line 174, column 23 - line 178, column 23): " + [ v1.constructor.name ]);
+    };
+    throw new Error("Failed pattern match at Sitebender (line 172, column 1 - line 172, column 45): " + [ v.constructor.name ]);
+};
+var getFromLocalStorage = function (v) {
+    return function (v1) {
+        return function __do() {
+            var w = Web_HTML.window();
+            var s = Web_HTML_Window.localStorage(w)();
+            var i = Web_Storage_Storage.getItem(v.key)(s)();
+            return Data_Either.note([ "Cannot get value for `" + (v.key + "` from local storage.") ])(fromString(i));
         };
     };
 };
-
-// getFromFormField :: ∀ a. FromFormFieldOperation a -> Maybe a -> Effect (Either Error String)
-// getFromFormField rec _ = do
-//   w <- window
-//   d <- document w
-//   i <- selectFromDocument (createQuerySelector rec) d
-//   getValue i
-// multiply :: ∀ a. EuclideanRing a => Ord a => (MultiplyOperation a) -> Maybe a -> a
-// multiply (MultiplyOperation r) = (\v -> foldl (\x y -> x * (makeCalculate y v)) one r.multipliers)
-// negate :: ∀ a. EuclideanRing a => Ord a => (NegateOperation a) -> Maybe a -> a
-// negate (NegateOperation r) = (\v -> Ring.negate (makeCalculate r.operand v))
-// subtract :: ∀ a. EuclideanRing a => Ord a => (SubtractOperation a) -> Maybe a -> a
-// subtract (SubtractOperation r) = (\v -> (makeCalculate r.minuend v) - (makeCalculate r.subtrahend v))
-var makeOperate = function (dictOrd) {
-    var getFromArgument1 = getFromArgument(dictOrd);
-    var get1 = get(dictOrd);
-    return function (v) {
-        if (v instanceof FromArgumentOp) {
-            return getFromArgument1(v.value0);
+var getFromSessionStorage = function (v) {
+    return function (v1) {
+        return function __do() {
+            var w = Web_HTML.window();
+            var s = Web_HTML_Window.sessionStorage(w)();
+            var i = Web_Storage_Storage.getItem(v.key)(s)();
+            return Data_Either.note([ "Cannot get value for `" + (v.key + "` from session storage.") ])(fromString(i));
         };
-        if (v instanceof FromConstantOp) {
-            return get1(v.value0);
+    };
+};
+var getValue = function (v) {
+    if (v instanceof Data_Either.Right) {
+        return function __do() {
+            var v1 = Web_HTML_HTMLInputElement.value(v.value0)();
+            var v2 = fromString(new Data_Maybe.Just(v1));
+            if (v2 instanceof Data_Maybe.Just) {
+                return new Data_Either.Right(v2.value0);
+            };
+            if (v2 instanceof Data_Maybe.Nothing) {
+                return new Data_Either.Left([ "Cannot retrieve value from form input." ]);
+            };
+            throw new Error("Failed pattern match at Sitebender (line 337, column 3 - line 339, column 80): " + [ v2.constructor.name ]);
         };
-        throw new Error("Failed pattern match at Sitebender (line 280, column 1 - line 280, column 79): " + [ v.constructor.name ]);
+    };
+    if (v instanceof Data_Either.Left) {
+        return pure(new Data_Either.Left(v.value0));
+    };
+    throw new Error("Failed pattern match at Sitebender (line 334, column 1 - line 334, column 78): " + [ v.constructor.name ]);
+};
+var doTheNegation = function (v) {
+    if (v instanceof Data_Either.Left) {
+        return new Data_Either.Left(v.value0);
+    };
+    if (v instanceof Data_Either.Right) {
+        return new Data_Either.Right(neg(v.value0));
+    };
+    throw new Error("Failed pattern match at Sitebender (line 372, column 1 - line 372, column 64): " + [ v.constructor.name ]);
+};
+var div = function (v) {
+    return function (v1) {
+        if (v instanceof OpInt && v1 instanceof OpInt) {
+            return new OpInt((function () {
+                var $441 = v1.value0 === 0;
+                if ($441) {
+                    return 0;
+                };
+                return v.value0 - v1.value0 | 0;
+            })());
+        };
+        if (v instanceof OpInt && v1 instanceof OpNumber) {
+            return new OpNumber((function () {
+                var $444 = v1.value0 === 0.0;
+                if ($444) {
+                    return 0.0;
+                };
+                return Data_Int.toNumber(v.value0) - v1.value0;
+            })());
+        };
+        if (v instanceof OpNumber && v1 instanceof OpInt) {
+            return new OpNumber((function () {
+                var $447 = v1.value0 === 0;
+                if ($447) {
+                    return 0.0;
+                };
+                return v.value0 - Data_Int.toNumber(v1.value0);
+            })());
+        };
+        if (v instanceof OpNumber && v1 instanceof OpNumber) {
+            return new OpNumber((function () {
+                var $450 = v1.value0 === 0.0;
+                if ($450) {
+                    return 0.0;
+                };
+                return v.value0 - v1.value0;
+            })());
+        };
+        throw new Error("Failed pattern match at Sitebender (line 237, column 1 - line 237, column 40): " + [ v.constructor.name, v1.constructor.name ]);
     };
 };
 var createTagNameSelector = function (v) {
@@ -472,7 +842,20 @@ var createTagNameSelector = function (v) {
     if (v instanceof Data_Maybe.Nothing) {
         return "";
     };
-    throw new Error("Failed pattern match at Sitebender (line 224, column 1 - line 224, column 48): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 298, column 1 - line 298, column 48): " + [ v.constructor.name ]);
+};
+var createSubtractOp = function (minuend) {
+    return function (subtrahend) {
+        return new SubtractOp({
+            minuend: minuend,
+            subtrahend: subtrahend
+        });
+    };
+};
+var createNegateOp = function (operand) {
+    return new NegateOp({
+        operand: operand
+    });
 };
 var createNameSelector = function (v) {
     if (v instanceof Data_Maybe.Just) {
@@ -481,7 +864,15 @@ var createNameSelector = function (v) {
     if (v instanceof Data_Maybe.Nothing) {
         return "";
     };
-    throw new Error("Failed pattern match at Sitebender (line 220, column 1 - line 220, column 45): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 294, column 1 - line 294, column 45): " + [ v.constructor.name ]);
+};
+var createMultiplyOp = function (multiplicand) {
+    return function (multiplier) {
+        return new MultiplyOp({
+            multiplicand: multiplicand,
+            multiplier: multiplier
+        });
+    };
 };
 var createIdSelector = function (v) {
     if (v instanceof Data_Maybe.Just) {
@@ -490,22 +881,26 @@ var createIdSelector = function (v) {
     if (v instanceof Data_Maybe.Nothing) {
         return "";
     };
-    throw new Error("Failed pattern match at Sitebender (line 216, column 1 - line 216, column 43): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 290, column 1 - line 290, column 43): " + [ v.constructor.name ]);
 };
-var createFromConstantOp = function (dictEuclideanRing) {
-    return function (dictOrd) {
-        return function (operand) {
-            return new FromConstantOp({
-                operand: operand
-            });
-        };
-    };
+var createFromSessionStorageOp = function (key) {
+    return new FromSessionStorageOp({
+        key: key
+    });
 };
-
-// createAddOp :: ∀ a. EuclideanRing a => Ord a => Array (Operation a) -> (Operation a)
-// createAddOp addends = AddOp (AddOperation { addends })
-// createDivideOp :: ∀ a. EuclideanRing a => Ord a => Calculation a -> Calculation a -> (Calculation a)
-// createDivideOp dividend divisor = DivideOp (DivideOperation { dividend, divisor })
+var createFromLocalStorageOp = function (key) {
+    return new FromLocalStorageOp({
+        key: key
+    });
+};
+var createFromFormFieldOp = function (record) {
+    return new FromFormFieldOp(record);
+};
+var createFromConstantOp = function (operand) {
+    return new FromConstantOp({
+        operand: operand
+    });
+};
 var createFromArgumentOp = function (v) {
     return new FromArgumentOp({});
 };
@@ -516,21 +911,16 @@ var createFormSelector = function (v) {
     if (v instanceof Data_Maybe.Nothing) {
         return "";
     };
-    throw new Error("Failed pattern match at Sitebender (line 212, column 1 - line 212, column 45): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 286, column 1 - line 286, column 45): " + [ v.constructor.name ]);
 };
-
-// getFromLocalStorage :: ∀ a. EuclideanRing a => Ord a => FromLocalStorageOperation String -> Maybe a -> Effect (Either Error String)
-// getFromLocalStorage (FromLocalStorageOperation { key }) _ = do
-//   w <- window
-//   s <- localStorage w
-//   i <- getItem key s
-//   pure (note (Error [ "Cannot get value for `" <> key <> "` from local storage." ]) i)
-// getFromSessionStorage :: ∀ a. FromSessionStorageOperation String -> Maybe a -> Effect (Either Error String)
-// getFromSessionStorage (FromSessionStorageOperation { key }) _ = do
-//   w <- window
-//   s <- sessionStorage w
-//   i <- getItem key s
-//   pure (note (Error [ "Cannot get value for `" <> key <> "` from session storage." ]) i)
+var createDivideOp = function (dividend) {
+    return function (divisor) {
+        return new DivideOp({
+            dividend: dividend,
+            divisor: divisor
+        });
+    };
+};
 var createClassListSelector = function (v) {
     if (v instanceof Data_Maybe.Nothing) {
         return "";
@@ -541,7 +931,7 @@ var createClassListSelector = function (v) {
     if (v instanceof Data_Maybe.Just) {
         return "." + Data_String_Common.joinWith(".")(v.value0);
     };
-    throw new Error("Failed pattern match at Sitebender (line 207, column 1 - line 207, column 58): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 281, column 1 - line 281, column 58): " + [ v.constructor.name ]);
 };
 var createQuerySelector = function (v) {
     if (v.classList instanceof Data_Maybe.Nothing && (v.form instanceof Data_Maybe.Nothing && (v.id instanceof Data_Maybe.Nothing && (v.name instanceof Data_Maybe.Nothing && (v.selector instanceof Data_Maybe.Nothing && v.tagName instanceof Data_Maybe.Nothing))))) {
@@ -552,21 +942,221 @@ var createQuerySelector = function (v) {
     };
     return new Data_Either.Right(createFormSelector(v.form) + (createTagNameSelector(v.tagName) + (createIdSelector(v.id) + (createClassListSelector(v.classList) + createNameSelector(v.name)))));
 };
+var getFromFormField = function (rec) {
+    return function (v) {
+        return function __do() {
+            var w = Web_HTML.window();
+            var d = Web_HTML_Window.document(w)();
+            var i = selectFromDocument(createQuerySelector(rec))(d)();
+            return getValue(i)();
+        };
+    };
+};
+var createAddOp = function (leftAddend) {
+    return function (rightAddend) {
+        return new AddOp({
+            leftAddend: leftAddend,
+            rightAddend: rightAddend
+        });
+    };
+};
+var concat = function (v) {
+    return function (v1) {
+        return Data_Array.concat([ v, v1 ]);
+    };
+};
+var doTheAddition = function (v) {
+    return function (v1) {
+        if (v instanceof Data_Either.Left && v1 instanceof Data_Either.Left) {
+            return new Data_Either.Left(concat(v.value0)(v1.value0));
+        };
+        if (v instanceof Data_Either.Left) {
+            return new Data_Either.Left(v.value0);
+        };
+        if (v1 instanceof Data_Either.Left) {
+            return new Data_Either.Left(v1.value0);
+        };
+        if (v instanceof Data_Either.Right && v1 instanceof Data_Either.Right) {
+            return new Data_Either.Right(sum(v.value0)(v1.value0));
+        };
+        throw new Error("Failed pattern match at Sitebender (line 224, column 1 - line 224, column 89): " + [ v.constructor.name, v1.constructor.name ]);
+    };
+};
+var doTheDivision = function (v) {
+    return function (v1) {
+        if (v instanceof Data_Either.Left && v1 instanceof Data_Either.Left) {
+            return new Data_Either.Left(concat(v.value0)(v1.value0));
+        };
+        if (v instanceof Data_Either.Left) {
+            return new Data_Either.Left(v.value0);
+        };
+        if (v1 instanceof Data_Either.Left) {
+            return new Data_Either.Left(v1.value0);
+        };
+        if (v instanceof Data_Either.Right && v1 instanceof Data_Either.Right) {
+            return new Data_Either.Right(div(v.value0)(v1.value0));
+        };
+        throw new Error("Failed pattern match at Sitebender (line 243, column 1 - line 243, column 89): " + [ v.constructor.name, v1.constructor.name ]);
+    };
+};
+var doTheMultiplication = function (v) {
+    return function (v1) {
+        if (v instanceof Data_Either.Left && v1 instanceof Data_Either.Left) {
+            return new Data_Either.Left(concat(v.value0)(v1.value0));
+        };
+        if (v instanceof Data_Either.Left) {
+            return new Data_Either.Left(v.value0);
+        };
+        if (v1 instanceof Data_Either.Left) {
+            return new Data_Either.Left(v1.value0);
+        };
+        if (v instanceof Data_Either.Right && v1 instanceof Data_Either.Right) {
+            return new Data_Either.Right(mult(v.value0)(v1.value0));
+        };
+        throw new Error("Failed pattern match at Sitebender (line 355, column 1 - line 355, column 95): " + [ v.constructor.name, v1.constructor.name ]);
+    };
+};
+var doTheSubtraction = function (v) {
+    return function (v1) {
+        if (v instanceof Data_Either.Left && v1 instanceof Data_Either.Left) {
+            return new Data_Either.Left(concat(v.value0)(v1.value0));
+        };
+        if (v instanceof Data_Either.Left) {
+            return new Data_Either.Left(v.value0);
+        };
+        if (v1 instanceof Data_Either.Left) {
+            return new Data_Either.Left(v1.value0);
+        };
+        if (v instanceof Data_Either.Right && v1 instanceof Data_Either.Right) {
+            return new Data_Either.Right(sub(v.value0)(v1.value0));
+        };
+        throw new Error("Failed pattern match at Sitebender (line 389, column 1 - line 389, column 92): " + [ v.constructor.name, v1.constructor.name ]);
+    };
+};
+var subtract = function (v) {
+    return function (v1) {
+        return function __do() {
+            var m = makeOperate(v.minuend)(v1)();
+            var s = makeOperate(v.subtrahend)(v1)();
+            return doTheSubtraction(m)(s);
+        };
+    };
+};
+var negate = function (v) {
+    return function (v1) {
+        return function __do() {
+            var o = makeOperate(v.operand)(v1)();
+            return doTheNegation(o);
+        };
+    };
+};
+var multiply = function (v) {
+    return function (v1) {
+        return function __do() {
+            var a1 = makeOperate(v.multiplicand)(v1)();
+            var a2 = makeOperate(v.multiplier)(v1)();
+            return doTheMultiplication(a1)(a2);
+        };
+    };
+};
+var makeOperate = function (v) {
+    if (v instanceof AddOp) {
+        return add(v.value0);
+    };
+    if (v instanceof DivideOp) {
+        return divide(v.value0);
+    };
+    if (v instanceof FromArgumentOp) {
+        return getFromArgument(v.value0);
+    };
+    if (v instanceof FromConstantOp) {
+        return get(v.value0);
+    };
+    if (v instanceof FromLocalStorageOp) {
+        return getFromLocalStorage(v.value0);
+    };
+    if (v instanceof FromSessionStorageOp) {
+        return getFromSessionStorage(v.value0);
+    };
+    if (v instanceof FromFormFieldOp) {
+        return getFromFormField(v.value0);
+    };
+    if (v instanceof MultiplyOp) {
+        return multiply(v.value0);
+    };
+    if (v instanceof NegateOp) {
+        return negate(v.value0);
+    };
+    if (v instanceof SubtractOp) {
+        return subtract(v.value0);
+    };
+    throw new Error("Failed pattern match at Sitebender (line 403, column 1 - line 403, column 77): " + [ v.constructor.name ]);
+};
+var divide = function (v) {
+    return function (v1) {
+        return function __do() {
+            var dd = makeOperate(v.dividend)(v1)();
+            var dr = makeOperate(v.divisor)(v1)();
+            return doTheDivision(dd)(dr);
+        };
+    };
+};
+var add = function (v) {
+    return function (v1) {
+        return function __do() {
+            var a1 = makeOperate(v.leftAddend)(v1)();
+            var a2 = makeOperate(v.rightAddend)(v1)();
+            return doTheAddition(a1)(a2);
+        };
+    };
+};
 export {
+    AddOp,
+    DivideOp,
     FromArgumentOp,
     FromConstantOp,
+    FromFormFieldOp,
+    FromLocalStorageOp,
+    FromSessionStorageOp,
+    MultiplyOp,
+    NegateOp,
+    SubtractOp,
     $$Error as Error,
+    AddOperation,
+    DivideOperation,
+    MultiplyOperation,
+    NegateOperation,
+    SubtractOperation,
     FromArgumentOperation,
     FromConstantOperation,
     FromFormFieldOperation,
     FromLocalStorageOperation,
     FromSessionStorageOperation,
+    createAddOp,
+    createDivideOp,
     createFromArgumentOp,
     createFromConstantOp,
+    createFromFormFieldOp,
+    createFromLocalStorageOp,
+    createFromSessionStorageOp,
+    createMultiplyOp,
+    createNegateOp,
+    createSubtractOp,
+    getFromFormField,
+    getFromLocalStorage,
+    getFromSessionStorage,
     getValue,
     makeOperate,
+    OpInt,
+    OpNumber,
     genericError_,
     showError,
+    genericOpResult_,
+    showOpResult,
+    genericAddOperation_,
+    showAddOperation,
+    genericDivideOperation_,
+    showDivideOperation,
     genericFromConstantOperat,
     showFromConstantOperation,
     genericFromArgumentOperat,
@@ -577,6 +1167,12 @@ export {
     showFromSessionStorageOpe,
     genericFromFormFieldOpera,
     showFromFormFieldOperatio,
+    genericMultiplyOperation_,
+    showMultiplyOperation,
+    genericNegateOperation_,
+    showNegateOperation,
+    genericSubtractOperation_,
+    showSubtractOperation,
     genericOperation_,
     showOperation
 };
