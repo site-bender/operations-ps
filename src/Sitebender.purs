@@ -38,9 +38,10 @@ module Sitebender
   , OpResult(..)
   ) where
 
-import Prelude (Unit, bind, pure, ($), (*), (+), (-), (<>), (==), (>>=))
+import Data.Argonaut (class DecodeJson, class EncodeJson)
+import Data.Argonaut.Decode.Generic (genericDecodeJson)
+import Data.Argonaut.Encode.Generic (genericEncodeJson)
 import Data.Array as A
-import Data.Array.NonEmpty (NonEmptyArray, head, last)
 import Data.Either (Either(..), note)
 import Data.Generic.Rep (class Generic)
 import Data.Int (toNumber)
@@ -52,6 +53,7 @@ import Data.Show (class Show)
 import Data.Show.Generic (genericShow)
 import Data.String.Common (joinWith)
 import Effect (Effect)
+import Prelude (Unit, bind, pure, ($), (*), (+), (-), (/), (<>), (==), (>>=))
 import Web.DOM.ParentNode (QuerySelector(..), querySelector)
 import Web.HTML (window)
 import Web.HTML.HTMLDocument (HTMLDocument, toParentNode)
@@ -65,6 +67,12 @@ derive instance Generic Error _
 instance Show Error where
   show = genericShow
 
+instance EncodeJson Error where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson Error where
+  decodeJson = genericDecodeJson
+
 concat :: Error -> Error -> Error
 concat (Error xs) (Error ys) = Error (A.concat [ xs, ys ])
 
@@ -73,6 +81,12 @@ data OpResult = OpInt Int | OpNumber Number
 derive instance Generic OpResult _
 instance Show OpResult where
   show = genericShow
+
+instance EncodeJson OpResult where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson OpResult where
+  decodeJson = genericDecodeJson
 
 type AddOpRow r = (leftAddend :: Operation, rightAddend :: Operation | r)
 type DivideOpRow r = (dividend :: Operation, divisor :: Operation | r)
@@ -99,11 +113,23 @@ derive instance Generic AddOperation _
 instance Show OpResult => Show AddOperation where
   show = genericShow
 
+instance EncodeJson AddOperation where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson AddOperation where
+  decodeJson = genericDecodeJson
+
 newtype DivideOperation = DivideOperation (Record (DivideOpRow ()))
 
 derive instance Generic DivideOperation _
 instance Show OpResult => Show DivideOperation where
   show = genericShow
+
+instance EncodeJson DivideOperation where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson DivideOperation where
+  decodeJson = genericDecodeJson
 
 newtype FromConstantOperation = FromConstantOperation (Record (FromConstantOpRow ()))
 
@@ -111,11 +137,23 @@ derive instance Generic FromConstantOperation _
 instance Show OpResult => Show FromConstantOperation where
   show = genericShow
 
+instance EncodeJson FromConstantOperation where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson FromConstantOperation where
+  decodeJson = genericDecodeJson
+
 newtype FromArgumentOperation = FromArgumentOperation (Record (FromArgumentOpRow ()))
 
 derive instance Generic FromArgumentOperation _
 instance Show FromArgumentOperation where
   show = genericShow
+
+instance EncodeJson FromArgumentOperation where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson FromArgumentOperation where
+  decodeJson = genericDecodeJson
 
 newtype FromLocalStorageOperation = FromLocalStorageOperation (Record (FromStorageOpRow ()))
 
@@ -123,11 +161,23 @@ derive instance Generic FromLocalStorageOperation _
 instance Show FromLocalStorageOperation where
   show = genericShow
 
+instance EncodeJson FromLocalStorageOperation where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson FromLocalStorageOperation where
+  decodeJson = genericDecodeJson
+
 newtype FromSessionStorageOperation = FromSessionStorageOperation (Record (FromStorageOpRow ()))
 
 derive instance Generic FromSessionStorageOperation _
 instance Show FromSessionStorageOperation where
   show = genericShow
+
+instance EncodeJson FromSessionStorageOperation where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson FromSessionStorageOperation where
+  decodeJson = genericDecodeJson
 
 newtype FromFormFieldOperation = FromFormFieldOperation (Record (FromFormFieldOpRow ()))
 
@@ -135,11 +185,23 @@ derive instance Generic FromFormFieldOperation _
 instance Show FromFormFieldOperation where
   show = genericShow
 
+instance EncodeJson FromFormFieldOperation where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson FromFormFieldOperation where
+  decodeJson = genericDecodeJson
+
 newtype MultiplyOperation = MultiplyOperation (Record (MultiplyOpRow ()))
 
 derive instance Generic MultiplyOperation _
 instance Show OpResult => Show MultiplyOperation where
   show = genericShow
+
+instance EncodeJson MultiplyOperation where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson MultiplyOperation where
+  decodeJson = genericDecodeJson
 
 newtype NegateOperation = NegateOperation (Record (NegateOpRow ()))
 
@@ -147,11 +209,23 @@ derive instance Generic NegateOperation _
 instance Show OpResult => Show NegateOperation where
   show = genericShow
 
+instance EncodeJson NegateOperation where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson NegateOperation where
+  decodeJson = genericDecodeJson
+
 newtype SubtractOperation = SubtractOperation (Record (SubtractOpRow ()))
 
 derive instance Generic SubtractOperation _
 instance Show OpResult => Show SubtractOperation where
   show = genericShow
+
+instance EncodeJson SubtractOperation where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson SubtractOperation where
+  decodeJson = genericDecodeJson
 
 data Operation
   = AddOp AddOperation
@@ -168,6 +242,12 @@ data Operation
 derive instance Generic Operation _
 instance Show OpResult => Show Operation where
   show = genericShow
+
+instance EncodeJson Operation where
+  encodeJson = genericEncodeJson
+
+instance DecodeJson Operation where
+  decodeJson = genericDecodeJson
 
 fromString :: Maybe String -> Maybe OpResult
 fromString Nothing = Nothing
@@ -216,10 +296,10 @@ createSubtractOp :: Operation -> Operation -> Operation
 createSubtractOp minuend subtrahend = SubtractOp (SubtractOperation { minuend, subtrahend })
 
 sum :: OpResult -> OpResult -> OpResult
-sum (OpInt x) (OpInt y) = OpInt $ if y == 0 then 0 else x + y
-sum (OpInt x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else (toNumber x) + y
-sum (OpNumber x) (OpInt y) = OpNumber $ if y == 0 then 0.0 else x + (toNumber y)
-sum (OpNumber x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else x + y
+sum (OpInt x) (OpInt y) = OpInt $ x + y
+sum (OpInt x) (OpNumber y) = OpNumber $ (toNumber x) + y
+sum (OpNumber x) (OpInt y) = OpNumber $ x + (toNumber y)
+sum (OpNumber x) (OpNumber y) = OpNumber $ x + y
 
 doTheAddition :: Either Error OpResult -> Either Error OpResult -> Either Error OpResult
 doTheAddition (Left e1) (Left e2) = Left (concat e1 e2)
@@ -235,10 +315,10 @@ add (AddOperation r) =
     pure $ doTheAddition a1 a2
 
 div :: OpResult -> OpResult -> OpResult
-div (OpInt x) (OpInt y) = OpInt $ if y == 0 then 0 else x - y
-div (OpInt x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else (toNumber x) - y
-div (OpNumber x) (OpInt y) = OpNumber $ if y == 0 then 0.0 else x - (toNumber y)
-div (OpNumber x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else x - y
+div (OpInt x) (OpInt y) = OpInt $ if y == 0 then 0 else x / y
+div (OpInt x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else (toNumber x) / y
+div (OpNumber x) (OpInt y) = OpNumber $ if y == 0 then 0.0 else x / (toNumber y)
+div (OpNumber x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else x / y
 
 doTheDivision :: Either Error OpResult -> Either Error OpResult -> Either Error OpResult
 doTheDivision (Left e1) (Left e2) = Left (concat e1 e2)
@@ -347,10 +427,10 @@ getFromFormField rec _ = do
   getValue i
 
 mult :: OpResult -> OpResult -> OpResult
-mult (OpInt x) (OpInt y) = OpInt $ if y == 0 then 0 else x * y
-mult (OpInt x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else (toNumber x) * y
-mult (OpNumber x) (OpInt y) = OpNumber $ if y == 0 then 0.0 else x * (toNumber y)
-mult (OpNumber x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else x * y
+mult (OpInt x) (OpInt y) = OpInt $ x * y
+mult (OpInt x) (OpNumber y) = OpNumber $ (toNumber x) * y
+mult (OpNumber x) (OpInt y) = OpNumber $ (toNumber y)
+mult (OpNumber x) (OpNumber y) = OpNumber $ x * y
 
 doTheMultiplication :: Either Error OpResult -> Either Error OpResult -> Either Error OpResult
 doTheMultiplication (Left e1) (Left e2) = Left (concat e1 e2)
@@ -411,4 +491,3 @@ makeOperate (FromFormFieldOp op) = getFromFormField op
 makeOperate (MultiplyOp op) = multiply op
 makeOperate (NegateOp op) = negate op
 makeOperate (SubtractOp op) = subtract op
-

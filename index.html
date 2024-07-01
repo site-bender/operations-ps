@@ -7,8 +7,44 @@
   </head>
   <body>
     <form>
-      <input type="number" name="name" value="3.1415926">
+      <input type="number" name="pi" value="3.1415926">
     </form>
     <script type="module" src="/index.js"></script>
+    <script type="module">
+      import { createAddOp, createDivideOp, createFromConstantOp, createFromArgumentOp, makeOperate, OpInt } from "./output/Sitebender/index.js";
+      import { Just, Nothing } from "./output/Data.Maybe/index.js"
+      import { Right } from "./output/Data.Either/index.js"
+      import { parseAddOp } from "./output/Sitebender.Json/index.js"
+
+      const argOp = createFromArgumentOp()
+      const conOp = createFromConstantOp(OpInt.create(9))
+      const addOp = createAddOp(argOp)(conOp)
+      const divOp = createDivideOp(conOp)(argOp)
+
+      const argulate = makeOperate(argOp)
+      const conulate = makeOperate(conOp)
+      const addEm = makeOperate(addOp)
+      const divEm = makeOperate(divOp)
+
+      const argOut = argulate(Just.create(OpInt.create(7)))()
+
+      const jsonAddOp = parseAddOp(`{"leftAddend":3,"rightAddend":7}`)
+
+      function unwrap (value) {
+        if (value instanceof Right) {
+          return value.value0.value0
+        }
+
+        return value.value0
+      }
+
+      console.log("Yay!", argOp, conOp, addOp)
+      console.log("Arg", argOut instanceof Right, argOut)
+      console.log("Con", conulate()())
+      console.log("addEm", unwrap(addEm(Just.create(OpInt.create(21)))()))
+      console.log("divEm", unwrap(divEm(Just.create(OpInt.create(0)))()))
+      console.log("divEm", unwrap(divEm(new Nothing())()))
+      console.log("jsonAddOp", jsonAddOp)
+    </script>
   </body>
 </html>

@@ -12,7 +12,9 @@ to generate this file without the comments in this block.
 -}
 { name = "@sitebender/operations"
 , dependencies =
-  [ "console"
+  [ "argonaut"
+  , "codec-argonaut"
+  , "console"
   , "control"
   , "effect"
   , "foldable-traversable"
