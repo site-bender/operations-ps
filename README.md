@@ -69,3 +69,5 @@ Where `v` is passed in to the function (`fromArgument`), `x`, `h`, `m` are from 
 An "operation", then, is anything that returns a value. These can be nested to form a tree where all the leaves are operations that directly return a value, and the nodes are operations that act on those values in some way.
 
 You can see how this could be used to create, for example, a spreadsheet.
+
+This is one module in a set of modules that will include a renderer/component library, a builder (no-code site generator), and a pub-sub system/event bus. Together, they will allow the creation of entire websites (or any part thereof) from fairly simple JSON configurations. In the builder's case, it will create the configuration in a WYSIWYG manner.
