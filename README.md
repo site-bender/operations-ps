@@ -62,9 +62,9 @@ This generates the following function:
 makeOperation json = (\v -> ((x + y + v) - (h * (m / n) * k)))
 ```
 
-Where `v` is passed in to the function (`FromArgument`), `x`, `h`, `m` are from form inputs (`FromFormInput`), `y` comes from sessionStorage (`FromSessionStorage`), `n` from localStorage (`FromLocalStorage`), and `k` is from a URL parameters (`FromUrlParam`).
+Where `v` is passed in to the function (`FromArgument`), `x`, `h`, `m` are from form inputs (`FromFormInput`), `y` comes from sessionStorage (`FromSessionStorage`), `n` from localStorage (`FromLocalStorage`), and `k` is from a URL parameter (`FromUrlParam`).
 
-`makeOperation` returns a composed function that when called gets all the data, does the calculation, and returns the result.
+`makeOperation` returns a composed function that when called retrieves all the data, does the calculation, and returns the result &ndash; a value or an array of errors.
 
 An "operation", then, is anything that returns a value. These can be nested to form a tree where all the leaves are operations that directly return a value, and the nodes are operations that act on those values in some way.
 
