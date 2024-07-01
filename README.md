@@ -11,17 +11,17 @@ The goal here (this is a WIP) is to be able to do calculations with composed fun
     "tag": "Add",
     "addends": [
       {
-        "tag": "fromFormInput",
+        "tag": "FromFormInput",
         "name": "x",
         "datatype": "Int"
       },
       {
-        "tag": "fromSessionStore",
+        "tag": "FromSessionStore",
         "key": "y",
         "datatype": "Int"
       },
       {
-        "tag": "fromArgument",
+        "tag": "FromArgument",
         "datatype": "Int"
       }
     ],
@@ -29,25 +29,25 @@ The goal here (this is a WIP) is to be able to do calculations with composed fun
       "tag": "Multiply",
       "multipliers" : [
       {
-        "tag": "fromFormInput",
+        "tag": "FromFormInput",
         "name": "h",
         "datatype": "Int"
       },
       {
         "tag": "Divide",
         "dividend": {
-          "tag": "fromFormInput",
+          "tag": "FromFormInput",
           "name": "m",
           "datatype": "Int"
         },
         "divisor": {
-          "tag": "fromLocalStorage",
+          "tag": "FromLocalStorage",
           "name": "n",
           "datatype": "Int"
         }
       },
       {
-        "tag": "fromUrlParam",
+        "tag": "FromUrlParam",
         "key": "k",
         "datatype": "Int"
       }]
