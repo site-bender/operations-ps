@@ -62,7 +62,7 @@ This generates the following function:
 makeOperation json = (\v -> ((x + y + v) - (h * (m / n) * k)))
 ```
 
-Where `v` is passed in to the function (`fromArgument`), `x`, `h`, `m` are from form inputs (`fromFormInput`), `y` comes from sessionStorage (`fromSessionStorage`), `n` from localStorage (`fromLocalStorage`), and `k` is from a URL parameters (`fromUrlParam`).
+Where `v` is passed in to the function (`FromArgument`), `x`, `h`, `m` are from form inputs (`FromFormInput`), `y` comes from sessionStorage (`FromSessionStorage`), `n` from localStorage (`FromLocalStorage`), and `k` is from a URL parameters (`FromUrlParam`).
 
 `makeOperation` returns a composed function that when called gets all the data, does the calculation, and returns the result.
 
