@@ -10,6 +10,7 @@ import * as Data_Number from "../Data.Number/index.js";
 import * as Data_Show from "../Data.Show/index.js";
 import * as Data_Show_Generic from "../Data.Show.Generic/index.js";
 import * as Data_String_Common from "../Data.String.Common/index.js";
+import * as Data_Tuple from "../Data.Tuple/index.js";
 import * as Effect from "../Effect/index.js";
 import * as Web_DOM_ParentNode from "../Web.DOM.ParentNode/index.js";
 import * as Web_HTML from "../Web.HTML/index.js";
@@ -17,6 +18,8 @@ import * as Web_HTML_HTMLDocument from "../Web.HTML.HTMLDocument/index.js";
 import * as Web_HTML_HTMLInputElement from "../Web.HTML.HTMLInputElement/index.js";
 import * as Web_HTML_Window from "../Web.HTML.Window/index.js";
 import * as Web_Storage_Storage from "../Web.Storage.Storage/index.js";
+var show = /* #__PURE__ */ Data_Show.show(/* #__PURE__ */ Data_Tuple.showTuple(Data_Show.showInt)(Data_Show.showInt));
+var show1 = /* #__PURE__ */ Data_Show.show(/* #__PURE__ */ Data_Show.showArray(Data_Show.showInt));
 var showRecord = /* #__PURE__ */ Data_Show.showRecord()();
 var genericShowConstructor = /* #__PURE__ */ Data_Show_Generic.genericShowConstructor(/* #__PURE__ */ Data_Show_Generic.genericShowArgsArgument(/* #__PURE__ */ showRecord(/* #__PURE__ */ Data_Show.showRecordFieldsConsNil({
     reflectSymbol: function () {
@@ -151,6 +154,18 @@ var OpNumber = /* #__PURE__ */ (function () {
     };
     return OpNumber;
 })();
+var MinTwo = /* #__PURE__ */ (function () {
+    function MinTwo(value0, value1) {
+        this.value0 = value0;
+        this.value1 = value1;
+    };
+    MinTwo.create = function (value0) {
+        return function (value1) {
+            return new MinTwo(value0, value1);
+        };
+    };
+    return MinTwo;
+})();
 var FromSessionStorageOperation = function (x) {
     return x;
 };
@@ -274,6 +289,11 @@ var NegateOperation = function (x) {
 var SubtractOperation = function (x) {
     return x;
 };
+var showMinTwo = {
+    show: function (v) {
+        return "(MinTwo " + (show(v.value0) + (" " + (show1(v.value1) + ")")));
+    }
+};
 var genericSubtractOperation_ = {
     to: function (x) {
         return x;
@@ -315,7 +335,7 @@ var genericOperation_ = {
         if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr)))))))) {
             return new SubtractOp(x.value0.value0.value0.value0.value0.value0.value0.value0.value0);
         };
-        throw new Error("Failed pattern match at Sitebender (line 167, column 1 - line 167, column 36): " + [ x.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 171, column 1 - line 171, column 36): " + [ x.constructor.name ]);
     },
     from: function (x) {
         if (x instanceof AddOp) {
@@ -348,7 +368,7 @@ var genericOperation_ = {
         if (x instanceof SubtractOp) {
             return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(x.value0)))))))));
         };
-        throw new Error("Failed pattern match at Sitebender (line 167, column 1 - line 167, column 36): " + [ x.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 171, column 1 - line 171, column 36): " + [ x.constructor.name ]);
     }
 };
 var genericShow1 = /* #__PURE__ */ Data_Show_Generic.genericShow(genericOperation_);
@@ -360,7 +380,7 @@ var genericOpResult_ = {
         if (x instanceof Data_Generic_Rep.Inr) {
             return new OpNumber(x.value0);
         };
-        throw new Error("Failed pattern match at Sitebender (line 72, column 1 - line 72, column 35): " + [ x.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 76, column 1 - line 76, column 35): " + [ x.constructor.name ]);
     },
     from: function (x) {
         if (x instanceof OpInt) {
@@ -369,7 +389,7 @@ var genericOpResult_ = {
         if (x instanceof OpNumber) {
             return new Data_Generic_Rep.Inr(x.value0);
         };
-        throw new Error("Failed pattern match at Sitebender (line 72, column 1 - line 72, column 35): " + [ x.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 76, column 1 - line 76, column 35): " + [ x.constructor.name ]);
     }
 };
 var showOpResult = {
@@ -585,42 +605,18 @@ var showAddOperation = function (dictShow) {
 var sum = function (v) {
     return function (v1) {
         if (v instanceof OpInt && v1 instanceof OpInt) {
-            return new OpInt((function () {
-                var $373 = v1.value0 === 0;
-                if ($373) {
-                    return 0;
-                };
-                return v.value0 + v1.value0 | 0;
-            })());
+            return new OpInt(v.value0 + v1.value0 | 0);
         };
         if (v instanceof OpInt && v1 instanceof OpNumber) {
-            return new OpNumber((function () {
-                var $376 = v1.value0 === 0.0;
-                if ($376) {
-                    return 0.0;
-                };
-                return Data_Int.toNumber(v.value0) + v1.value0;
-            })());
+            return new OpNumber(Data_Int.toNumber(v.value0) + v1.value0);
         };
         if (v instanceof OpNumber && v1 instanceof OpInt) {
-            return new OpNumber((function () {
-                var $379 = v1.value0 === 0;
-                if ($379) {
-                    return 0.0;
-                };
-                return v.value0 + Data_Int.toNumber(v1.value0);
-            })());
+            return new OpNumber(v.value0 + Data_Int.toNumber(v1.value0));
         };
         if (v instanceof OpNumber && v1 instanceof OpNumber) {
-            return new OpNumber((function () {
-                var $382 = v1.value0 === 0.0;
-                if ($382) {
-                    return 0.0;
-                };
-                return v.value0 + v1.value0;
-            })());
+            return new OpNumber(v.value0 + v1.value0);
         };
-        throw new Error("Failed pattern match at Sitebender (line 217, column 1 - line 217, column 40): " + [ v.constructor.name, v1.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 221, column 1 - line 221, column 40): " + [ v.constructor.name, v1.constructor.name ]);
     };
 };
 var sub = function (v) {
@@ -637,7 +633,7 @@ var sub = function (v) {
         if (v instanceof OpNumber && v1 instanceof OpNumber) {
             return new OpNumber(v.value0 - v1.value0);
         };
-        throw new Error("Failed pattern match at Sitebender (line 382, column 1 - line 382, column 40): " + [ v.constructor.name, v1.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 386, column 1 - line 386, column 40): " + [ v.constructor.name, v1.constructor.name ]);
     };
 };
 var showQS = function (v) {
@@ -655,7 +651,7 @@ var selectFromDocument = function (v) {
         if (v instanceof Data_Either.Left) {
             return pure(new Data_Either.Left(v.value0));
         };
-        throw new Error("Failed pattern match at Sitebender (line 326, column 1 - line 326, column 109): " + [ v.constructor.name, v1.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 330, column 1 - line 330, column 109): " + [ v.constructor.name, v1.constructor.name ]);
     };
 };
 var neg = function (v) {
@@ -665,47 +661,23 @@ var neg = function (v) {
     if (v instanceof OpNumber) {
         return new OpNumber(-v.value0);
     };
-    throw new Error("Failed pattern match at Sitebender (line 367, column 1 - line 367, column 28): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 371, column 1 - line 371, column 28): " + [ v.constructor.name ]);
 };
 var mult = function (v) {
     return function (v1) {
         if (v instanceof OpInt && v1 instanceof OpInt) {
-            return new OpInt((function () {
-                var $405 = v1.value0 === 0;
-                if ($405) {
-                    return 0;
-                };
-                return v.value0 * v1.value0 | 0;
-            })());
+            return new OpInt(v.value0 * v1.value0 | 0);
         };
         if (v instanceof OpInt && v1 instanceof OpNumber) {
-            return new OpNumber((function () {
-                var $408 = v1.value0 === 0.0;
-                if ($408) {
-                    return 0.0;
-                };
-                return Data_Int.toNumber(v.value0) * v1.value0;
-            })());
+            return new OpNumber(Data_Int.toNumber(v.value0) * v1.value0);
         };
         if (v instanceof OpNumber && v1 instanceof OpInt) {
-            return new OpNumber((function () {
-                var $411 = v1.value0 === 0;
-                if ($411) {
-                    return 0.0;
-                };
-                return v.value0 * Data_Int.toNumber(v1.value0);
-            })());
+            return new OpNumber(v.value0 * Data_Int.toNumber(v1.value0));
         };
         if (v instanceof OpNumber && v1 instanceof OpNumber) {
-            return new OpNumber((function () {
-                var $414 = v1.value0 === 0.0;
-                if ($414) {
-                    return 0.0;
-                };
-                return v.value0 * v1.value0;
-            })());
+            return new OpNumber(v.value0 * v1.value0);
         };
-        throw new Error("Failed pattern match at Sitebender (line 348, column 1 - line 348, column 41): " + [ v.constructor.name, v1.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 352, column 1 - line 352, column 41): " + [ v.constructor.name, v1.constructor.name ]);
     };
 };
 var getArgValue = function (v) {
@@ -715,7 +687,7 @@ var getArgValue = function (v) {
     if (v instanceof Data_Maybe.Nothing) {
         return pure(new Data_Either.Left([ "Missing argument." ]));
     };
-    throw new Error("Failed pattern match at Sitebender (line 259, column 1 - line 259, column 64): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 263, column 1 - line 263, column 64): " + [ v.constructor.name ]);
 };
 var getFromArgument = function (v) {
     return getArgValue;
@@ -742,11 +714,11 @@ var fromString = function (v) {
             if (v2 instanceof Data_Maybe.Nothing) {
                 return Data_Maybe.Nothing.value;
             };
-            throw new Error("Failed pattern match at Sitebender (line 175, column 14 - line 177, column 23): " + [ v2.constructor.name ]);
+            throw new Error("Failed pattern match at Sitebender (line 179, column 14 - line 181, column 23): " + [ v2.constructor.name ]);
         };
-        throw new Error("Failed pattern match at Sitebender (line 173, column 23 - line 177, column 23): " + [ v1.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 177, column 23 - line 181, column 23): " + [ v1.constructor.name ]);
     };
-    throw new Error("Failed pattern match at Sitebender (line 171, column 1 - line 171, column 45): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 175, column 1 - line 175, column 45): " + [ v.constructor.name ]);
 };
 var getFromLocalStorage = function (v) {
     return function (v1) {
@@ -779,13 +751,16 @@ var getValue = function (v) {
             if (v2 instanceof Data_Maybe.Nothing) {
                 return new Data_Either.Left([ "Cannot retrieve value from form input." ]);
             };
-            throw new Error("Failed pattern match at Sitebender (line 336, column 3 - line 338, column 80): " + [ v2.constructor.name ]);
+            throw new Error("Failed pattern match at Sitebender (line 340, column 3 - line 342, column 80): " + [ v2.constructor.name ]);
         };
     };
     if (v instanceof Data_Either.Left) {
         return pure(new Data_Either.Left(v.value0));
     };
-    throw new Error("Failed pattern match at Sitebender (line 333, column 1 - line 333, column 78): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 337, column 1 - line 337, column 78): " + [ v.constructor.name ]);
+};
+var doubleton = function (t) {
+    return new MinTwo(t, [  ]);
 };
 var doTheNegation = function (v) {
     if (v instanceof Data_Either.Left) {
@@ -794,14 +769,14 @@ var doTheNegation = function (v) {
     if (v instanceof Data_Either.Right) {
         return new Data_Either.Right(neg(v.value0));
     };
-    throw new Error("Failed pattern match at Sitebender (line 371, column 1 - line 371, column 64): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 375, column 1 - line 375, column 64): " + [ v.constructor.name ]);
 };
 var div = function (v) {
     return function (v1) {
         if (v instanceof OpInt && v1 instanceof OpInt) {
             return new OpInt((function () {
-                var $443 = v1.value0 === 0;
-                if ($443) {
+                var $445 = v1.value0 === 0;
+                if ($445) {
                     return 0;
                 };
                 return div1(v.value0)(v1.value0);
@@ -809,8 +784,8 @@ var div = function (v) {
         };
         if (v instanceof OpInt && v1 instanceof OpNumber) {
             return new OpNumber((function () {
-                var $446 = v1.value0 === 0.0;
-                if ($446) {
+                var $448 = v1.value0 === 0.0;
+                if ($448) {
                     return 0.0;
                 };
                 return Data_Int.toNumber(v.value0) / v1.value0;
@@ -818,8 +793,8 @@ var div = function (v) {
         };
         if (v instanceof OpNumber && v1 instanceof OpInt) {
             return new OpNumber((function () {
-                var $449 = v1.value0 === 0;
-                if ($449) {
+                var $451 = v1.value0 === 0;
+                if ($451) {
                     return 0.0;
                 };
                 return v.value0 / Data_Int.toNumber(v1.value0);
@@ -827,14 +802,14 @@ var div = function (v) {
         };
         if (v instanceof OpNumber && v1 instanceof OpNumber) {
             return new OpNumber((function () {
-                var $452 = v1.value0 === 0.0;
-                if ($452) {
+                var $454 = v1.value0 === 0.0;
+                if ($454) {
                     return 0.0;
                 };
                 return v.value0 / v1.value0;
             })());
         };
-        throw new Error("Failed pattern match at Sitebender (line 236, column 1 - line 236, column 40): " + [ v.constructor.name, v1.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 240, column 1 - line 240, column 40): " + [ v.constructor.name, v1.constructor.name ]);
     };
 };
 var createTagNameSelector = function (v) {
@@ -844,7 +819,7 @@ var createTagNameSelector = function (v) {
     if (v instanceof Data_Maybe.Nothing) {
         return "";
     };
-    throw new Error("Failed pattern match at Sitebender (line 297, column 1 - line 297, column 48): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 301, column 1 - line 301, column 48): " + [ v.constructor.name ]);
 };
 var createSubtractOp = function (minuend) {
     return function (subtrahend) {
@@ -866,7 +841,7 @@ var createNameSelector = function (v) {
     if (v instanceof Data_Maybe.Nothing) {
         return "";
     };
-    throw new Error("Failed pattern match at Sitebender (line 293, column 1 - line 293, column 45): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 297, column 1 - line 297, column 45): " + [ v.constructor.name ]);
 };
 var createMultiplyOp = function (multiplicand) {
     return function (multiplier) {
@@ -883,7 +858,7 @@ var createIdSelector = function (v) {
     if (v instanceof Data_Maybe.Nothing) {
         return "";
     };
-    throw new Error("Failed pattern match at Sitebender (line 289, column 1 - line 289, column 43): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 293, column 1 - line 293, column 43): " + [ v.constructor.name ]);
 };
 var createFromSessionStorageOp = function (key) {
     return new FromSessionStorageOp({
@@ -913,7 +888,7 @@ var createFormSelector = function (v) {
     if (v instanceof Data_Maybe.Nothing) {
         return "";
     };
-    throw new Error("Failed pattern match at Sitebender (line 285, column 1 - line 285, column 45): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 289, column 1 - line 289, column 45): " + [ v.constructor.name ]);
 };
 var createDivideOp = function (dividend) {
     return function (divisor) {
@@ -933,7 +908,7 @@ var createClassListSelector = function (v) {
     if (v instanceof Data_Maybe.Just) {
         return "." + Data_String_Common.joinWith(".")(v.value0);
     };
-    throw new Error("Failed pattern match at Sitebender (line 280, column 1 - line 280, column 58): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 284, column 1 - line 284, column 58): " + [ v.constructor.name ]);
 };
 var createQuerySelector = function (v) {
     if (v.classList instanceof Data_Maybe.Nothing && (v.form instanceof Data_Maybe.Nothing && (v.id instanceof Data_Maybe.Nothing && (v.name instanceof Data_Maybe.Nothing && (v.selector instanceof Data_Maybe.Nothing && v.tagName instanceof Data_Maybe.Nothing))))) {
@@ -981,7 +956,7 @@ var doTheAddition = function (v) {
         if (v instanceof Data_Either.Right && v1 instanceof Data_Either.Right) {
             return new Data_Either.Right(sum(v.value0)(v1.value0));
         };
-        throw new Error("Failed pattern match at Sitebender (line 223, column 1 - line 223, column 89): " + [ v.constructor.name, v1.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 227, column 1 - line 227, column 89): " + [ v.constructor.name, v1.constructor.name ]);
     };
 };
 var doTheDivision = function (v) {
@@ -998,7 +973,7 @@ var doTheDivision = function (v) {
         if (v instanceof Data_Either.Right && v1 instanceof Data_Either.Right) {
             return new Data_Either.Right(div(v.value0)(v1.value0));
         };
-        throw new Error("Failed pattern match at Sitebender (line 242, column 1 - line 242, column 89): " + [ v.constructor.name, v1.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 246, column 1 - line 246, column 89): " + [ v.constructor.name, v1.constructor.name ]);
     };
 };
 var doTheMultiplication = function (v) {
@@ -1015,7 +990,7 @@ var doTheMultiplication = function (v) {
         if (v instanceof Data_Either.Right && v1 instanceof Data_Either.Right) {
             return new Data_Either.Right(mult(v.value0)(v1.value0));
         };
-        throw new Error("Failed pattern match at Sitebender (line 354, column 1 - line 354, column 95): " + [ v.constructor.name, v1.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 358, column 1 - line 358, column 95): " + [ v.constructor.name, v1.constructor.name ]);
     };
 };
 var doTheSubtraction = function (v) {
@@ -1032,7 +1007,7 @@ var doTheSubtraction = function (v) {
         if (v instanceof Data_Either.Right && v1 instanceof Data_Either.Right) {
             return new Data_Either.Right(sub(v.value0)(v1.value0));
         };
-        throw new Error("Failed pattern match at Sitebender (line 388, column 1 - line 388, column 92): " + [ v.constructor.name, v1.constructor.name ]);
+        throw new Error("Failed pattern match at Sitebender (line 392, column 1 - line 392, column 92): " + [ v.constructor.name, v1.constructor.name ]);
     };
 };
 var subtract = function (v) {
@@ -1092,7 +1067,7 @@ var makeOperate = function (v) {
     if (v instanceof SubtractOp) {
         return subtract(v.value0);
     };
-    throw new Error("Failed pattern match at Sitebender (line 402, column 1 - line 402, column 77): " + [ v.constructor.name ]);
+    throw new Error("Failed pattern match at Sitebender (line 406, column 1 - line 406, column 77): " + [ v.constructor.name ]);
 };
 var divide = function (v) {
     return function (v1) {
@@ -1151,6 +1126,7 @@ export {
     makeOperate,
     OpInt,
     OpNumber,
+    doubleton,
     genericError_,
     showError,
     genericOpResult_,
@@ -1176,5 +1152,6 @@ export {
     genericSubtractOperation_,
     showSubtractOperation,
     genericOperation_,
-    showOperation
+    showOperation,
+    showMinTwo
 };

@@ -13,6 +13,7 @@ to generate this file without the comments in this block.
 { name = "@sitebender/operations"
 , dependencies =
   [ "argonaut"
+  , "argonaut-generic"
   , "codec-argonaut"
   , "console"
   , "control"
@@ -23,6 +24,7 @@ to generate this file without the comments in this block.
   , "maybe"
   , "prelude"
   , "strings"
+  , "validation"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]

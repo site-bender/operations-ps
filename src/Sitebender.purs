@@ -1,6 +1,5 @@
 module Sitebender
   ( Operation(..)
-  , Error(..)
   , AddOpRow
   , DivideOpRow
   , MultiplyOpRow
@@ -38,10 +37,6 @@ module Sitebender
   , OpResult(..)
   ) where
 
-import Data.Argonaut (class DecodeJson, class EncodeJson)
-import Data.Argonaut.Decode.Generic (genericDecodeJson)
-import Data.Argonaut.Encode.Generic (genericEncodeJson)
-import Data.Array as A
 import Data.Either (Either(..), note)
 import Data.Generic.Rep (class Generic)
 import Data.Int (toNumber)
@@ -52,8 +47,9 @@ import Data.Ring as Ring
 import Data.Show (class Show)
 import Data.Show.Generic (genericShow)
 import Data.String.Common (joinWith)
+import Data.Validation.Semigroup (toEither, V(..))
 import Effect (Effect)
-import Prelude (Unit, bind, pure, ($), (*), (+), (-), (/), (<>), (==), (>>=))
+import Prelude (Unit, bind, pure, ($), (*), (+), (-), (/), (<$>), (<*>), (<<<), (<>), (>>=))
 import Web.DOM.ParentNode (QuerySelector(..), querySelector)
 import Web.HTML (window)
 import Web.HTML.HTMLDocument (HTMLDocument, toParentNode)
@@ -61,32 +57,11 @@ import Web.HTML.HTMLInputElement (HTMLInputElement, fromElement, value)
 import Web.HTML.Window (document, localStorage, sessionStorage)
 import Web.Storage.Storage (getItem)
 
-newtype Error = Error (Array String)
-
-derive instance Generic Error _
-instance Show Error where
-  show = genericShow
-
-instance EncodeJson Error where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson Error where
-  decodeJson = genericDecodeJson
-
-concat :: Error -> Error -> Error
-concat (Error xs) (Error ys) = Error (A.concat [ xs, ys ])
-
 data OpResult = OpInt Int | OpNumber Number
 
 derive instance Generic OpResult _
 instance Show OpResult where
   show = genericShow
-
-instance EncodeJson OpResult where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson OpResult where
-  decodeJson = genericDecodeJson
 
 type AddOpRow r = (leftAddend :: Operation, rightAddend :: Operation | r)
 type DivideOpRow r = (dividend :: Operation, divisor :: Operation | r)
@@ -113,23 +88,11 @@ derive instance Generic AddOperation _
 instance Show OpResult => Show AddOperation where
   show = genericShow
 
-instance EncodeJson AddOperation where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson AddOperation where
-  decodeJson = genericDecodeJson
-
 newtype DivideOperation = DivideOperation (Record (DivideOpRow ()))
 
 derive instance Generic DivideOperation _
 instance Show OpResult => Show DivideOperation where
   show = genericShow
-
-instance EncodeJson DivideOperation where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson DivideOperation where
-  decodeJson = genericDecodeJson
 
 newtype FromConstantOperation = FromConstantOperation (Record (FromConstantOpRow ()))
 
@@ -137,23 +100,11 @@ derive instance Generic FromConstantOperation _
 instance Show OpResult => Show FromConstantOperation where
   show = genericShow
 
-instance EncodeJson FromConstantOperation where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson FromConstantOperation where
-  decodeJson = genericDecodeJson
-
 newtype FromArgumentOperation = FromArgumentOperation (Record (FromArgumentOpRow ()))
 
 derive instance Generic FromArgumentOperation _
 instance Show FromArgumentOperation where
   show = genericShow
-
-instance EncodeJson FromArgumentOperation where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson FromArgumentOperation where
-  decodeJson = genericDecodeJson
 
 newtype FromLocalStorageOperation = FromLocalStorageOperation (Record (FromStorageOpRow ()))
 
@@ -161,23 +112,11 @@ derive instance Generic FromLocalStorageOperation _
 instance Show FromLocalStorageOperation where
   show = genericShow
 
-instance EncodeJson FromLocalStorageOperation where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson FromLocalStorageOperation where
-  decodeJson = genericDecodeJson
-
 newtype FromSessionStorageOperation = FromSessionStorageOperation (Record (FromStorageOpRow ()))
 
 derive instance Generic FromSessionStorageOperation _
 instance Show FromSessionStorageOperation where
   show = genericShow
-
-instance EncodeJson FromSessionStorageOperation where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson FromSessionStorageOperation where
-  decodeJson = genericDecodeJson
 
 newtype FromFormFieldOperation = FromFormFieldOperation (Record (FromFormFieldOpRow ()))
 
@@ -185,23 +124,11 @@ derive instance Generic FromFormFieldOperation _
 instance Show FromFormFieldOperation where
   show = genericShow
 
-instance EncodeJson FromFormFieldOperation where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson FromFormFieldOperation where
-  decodeJson = genericDecodeJson
-
 newtype MultiplyOperation = MultiplyOperation (Record (MultiplyOpRow ()))
 
 derive instance Generic MultiplyOperation _
 instance Show OpResult => Show MultiplyOperation where
   show = genericShow
-
-instance EncodeJson MultiplyOperation where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson MultiplyOperation where
-  decodeJson = genericDecodeJson
 
 newtype NegateOperation = NegateOperation (Record (NegateOpRow ()))
 
@@ -209,23 +136,11 @@ derive instance Generic NegateOperation _
 instance Show OpResult => Show NegateOperation where
   show = genericShow
 
-instance EncodeJson NegateOperation where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson NegateOperation where
-  decodeJson = genericDecodeJson
-
 newtype SubtractOperation = SubtractOperation (Record (SubtractOpRow ()))
 
 derive instance Generic SubtractOperation _
 instance Show OpResult => Show SubtractOperation where
   show = genericShow
-
-instance EncodeJson SubtractOperation where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson SubtractOperation where
-  decodeJson = genericDecodeJson
 
 data Operation
   = AddOp AddOperation
@@ -242,12 +157,6 @@ data Operation
 derive instance Generic Operation _
 instance Show OpResult => Show Operation where
   show = genericShow
-
-instance EncodeJson Operation where
-  encodeJson = genericEncodeJson
-
-instance DecodeJson Operation where
-  decodeJson = genericDecodeJson
 
 fromString :: Maybe String -> Maybe OpResult
 fromString Nothing = Nothing
@@ -295,68 +204,43 @@ createNegateOp operand = NegateOp (NegateOperation { operand })
 createSubtractOp :: Operation -> Operation -> Operation
 createSubtractOp minuend subtrahend = SubtractOp (SubtractOperation { minuend, subtrahend })
 
-sum :: OpResult -> OpResult -> OpResult
-sum (OpInt x) (OpInt y) = OpInt $ x + y
-sum (OpInt x) (OpNumber y) = OpNumber $ (toNumber x) + y
-sum (OpNumber x) (OpInt y) = OpNumber $ x + (toNumber y)
-sum (OpNumber x) (OpNumber y) = OpNumber $ x + y
+add :: AddOperation -> Maybe OpResult -> Effect (Either (Array String) OpResult)
+add (AddOperation r) v = do
+  m <- makeOperate r.leftAddend v
+  s <- makeOperate r.rightAddend v
+  let plus = converting (+) (+)
+  pure <<< toEither $ plus <$> V m <*> V s
 
-doTheAddition :: Either Error OpResult -> Either Error OpResult -> Either Error OpResult
-doTheAddition (Left e1) (Left e2) = Left (concat e1 e2)
-doTheAddition (Left e1) _ = Left e1
-doTheAddition _ (Left e2) = Left e2
-doTheAddition (Right x) (Right y) = Right (sum x y)
+divide :: DivideOperation -> Maybe OpResult -> Effect (Either (Array String) OpResult)
+divide (DivideOperation r) v = do
+  m <- makeOperate r.dividend v
+  s <- makeOperate r.divisor v
+  let over = converting (/) (/)
+  pure <<< toEither $ over <$> V m <*> V s
 
-add :: AddOperation -> Maybe OpResult -> Effect (Either Error OpResult)
-add (AddOperation r) =
-  \v -> do
-    a1 <- makeOperate r.leftAddend v
-    a2 <- makeOperate r.rightAddend v
-    pure $ doTheAddition a1 a2
-
-div :: OpResult -> OpResult -> OpResult
-div (OpInt x) (OpInt y) = OpInt $ if y == 0 then 0 else x / y
-div (OpInt x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else (toNumber x) / y
-div (OpNumber x) (OpInt y) = OpNumber $ if y == 0 then 0.0 else x / (toNumber y)
-div (OpNumber x) (OpNumber y) = OpNumber $ if y == 0.0 then 0.0 else x / y
-
-doTheDivision :: Either Error OpResult -> Either Error OpResult -> Either Error OpResult
-doTheDivision (Left e1) (Left e2) = Left (concat e1 e2)
-doTheDivision (Left e1) _ = Left e1
-doTheDivision _ (Left e2) = Left e2
-doTheDivision (Right x) (Right y) = Right (div x y)
-
-divide :: DivideOperation -> Maybe OpResult -> Effect (Either Error OpResult)
-divide (DivideOperation r) =
-  ( \v -> do
-      dd <- makeOperate r.dividend v
-      dr <- makeOperate r.divisor v
-      pure $ doTheDivision dd dr
-  )
-
-get :: FromConstantOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+get :: FromConstantOperation -> Maybe OpResult -> Effect (Either (Array String) OpResult)
 get (FromConstantOperation r) = (\_ -> pure $ Right r.operand)
 
-getArgValue :: Maybe OpResult -> Effect (Either Error OpResult)
+getArgValue :: Maybe OpResult -> Effect (Either (Array String) OpResult)
 getArgValue (Just v) = pure $ Right v
-getArgValue Nothing = pure $ Left (Error [ "Missing argument." ])
+getArgValue Nothing = pure $ Left [ "Missing argument." ]
 
-getFromArgument :: FromArgumentOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+getFromArgument :: FromArgumentOperation -> Maybe OpResult -> Effect (Either (Array String) OpResult)
 getFromArgument (FromArgumentOperation {}) = getArgValue
 
-getFromLocalStorage :: FromLocalStorageOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+getFromLocalStorage :: FromLocalStorageOperation -> Maybe OpResult -> Effect (Either (Array String) OpResult)
 getFromLocalStorage (FromLocalStorageOperation { key }) _ = do
   w <- window
   s <- localStorage w
   i <- getItem key s
-  pure (note (Error [ "Cannot get value for `" <> key <> "` from local storage." ]) (fromString i))
+  pure (note [ "Cannot get value for `" <> key <> "` from local storage." ] (fromString i))
 
-getFromSessionStorage :: FromSessionStorageOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+getFromSessionStorage :: FromSessionStorageOperation -> Maybe OpResult -> Effect (Either (Array String) OpResult)
 getFromSessionStorage (FromSessionStorageOperation { key }) _ = do
   w <- window
   s <- sessionStorage w
   i <- getItem key s
-  pure (note (Error [ "Cannot get value for `" <> key <> "` from session storage." ]) (fromString i))
+  pure (note [ "Cannot get value for `" <> key <> "` from session storage." ] (fromString i))
 
 createClassListSelector :: Maybe (Array String) -> String
 createClassListSelector Nothing = ""
@@ -379,7 +263,7 @@ createTagNameSelector :: Maybe String -> String
 createTagNameSelector (Just s) = s
 createTagNameSelector Nothing = ""
 
-createQuerySelector :: FromFormFieldOperation -> Either Error QuerySelector
+createQuerySelector :: FromFormFieldOperation -> Either (Array String) QuerySelector
 createQuerySelector
   ( FromFormFieldOperation
       { classList: Nothing
@@ -389,7 +273,7 @@ createQuerySelector
       , selector: Nothing
       , tagName: Nothing
       }
-  ) = Left (Error [ "Cannot find element without a selector." ])
+  ) = Left [ "Cannot find element without a selector." ]
 createQuerySelector (FromFormFieldOperation { selector: (Just s) }) = Right (QuerySelector s)
 createQuerySelector (FromFormFieldOperation rec) = Right
   ( QuerySelector
@@ -404,83 +288,58 @@ createQuerySelector (FromFormFieldOperation rec) = Right
 showQS :: QuerySelector -> String
 showQS (QuerySelector s) = s
 
-selectFromDocument :: (Either Error QuerySelector) -> HTMLDocument -> Effect (Either Error HTMLInputElement)
+selectFromDocument :: (Either (Array String) QuerySelector) -> HTMLDocument -> Effect (Either (Array String) HTMLInputElement)
 selectFromDocument (Right sel) doc = do
   let el = querySelector sel (toParentNode doc)
   m <- el
-  pure (note (Error [ "Cannot find element using selector `" <> showQS sel <> "`." ]) (m >>= fromElement))
+  pure (note [ "Cannot find element using selector `" <> showQS sel <> "`." ] (m >>= fromElement))
 selectFromDocument (Left err) _ = pure (Left err)
 
-getValue :: (Either Error HTMLInputElement) -> Effect (Either Error OpResult)
+getValue :: (Either (Array String) HTMLInputElement) -> Effect (Either (Array String) OpResult)
 getValue (Right el) = do
   v <- value el
   case fromString (Just v) of
     (Just n) -> pure (Right n)
-    Nothing -> pure (Left (Error [ "Cannot retrieve value from form input." ]))
+    Nothing -> pure (Left [ "Cannot retrieve value from form input." ])
 getValue (Left err) = pure (Left err)
 
-getFromFormField :: FromFormFieldOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+getFromFormField :: FromFormFieldOperation -> Maybe OpResult -> Effect (Either (Array String) OpResult)
 getFromFormField rec _ = do
   w <- window
   d <- document w
   i <- selectFromDocument (createQuerySelector rec) d
   getValue i
 
-mult :: OpResult -> OpResult -> OpResult
-mult (OpInt x) (OpInt y) = OpInt $ x * y
-mult (OpInt x) (OpNumber y) = OpNumber $ (toNumber x) * y
-mult (OpNumber x) (OpInt y) = OpNumber $ (toNumber y)
-mult (OpNumber x) (OpNumber y) = OpNumber $ x * y
-
-doTheMultiplication :: Either Error OpResult -> Either Error OpResult -> Either Error OpResult
-doTheMultiplication (Left e1) (Left e2) = Left (concat e1 e2)
-doTheMultiplication (Left e1) _ = Left e1
-doTheMultiplication _ (Left e2) = Left e2
-doTheMultiplication (Right x) (Right y) = Right (mult x y)
-
-multiply :: MultiplyOperation -> Maybe OpResult -> Effect (Either Error OpResult)
-multiply (MultiplyOperation r) =
-  \v -> do
-    a1 <- makeOperate r.multiplicand v
-    a2 <- makeOperate r.multiplier v
-    pure $ doTheMultiplication a1 a2
+multiply :: MultiplyOperation -> Maybe OpResult -> Effect (Either (Array String) OpResult)
+multiply (MultiplyOperation r) v = do
+  m <- makeOperate r.multiplicand v
+  s <- makeOperate r.multiplier v
+  let times = converting (*) (*)
+  pure <<< toEither $ times <$> V m <*> V s
 
 neg :: OpResult -> OpResult
 neg (OpInt o) = OpInt $ Ring.negate o
 neg (OpNumber o) = OpNumber $ Ring.negate o
 
-doTheNegation :: Either Error OpResult -> Either Error OpResult
+doTheNegation :: Either (Array String) OpResult -> Either (Array String) OpResult
 doTheNegation (Left e) = Left e
 doTheNegation (Right x) = Right (neg x)
 
-negate :: NegateOperation -> Maybe OpResult -> Effect (Either Error OpResult)
+negate :: NegateOperation -> Maybe OpResult -> Effect (Either (Array String) OpResult)
 negate (NegateOperation r) =
   ( \v -> do
       o <- makeOperate r.operand v
       pure $ doTheNegation o
   )
 
-sub :: OpResult -> OpResult -> OpResult
-sub (OpInt x) (OpInt y) = OpInt $ x - y
-sub (OpInt x) (OpNumber y) = OpNumber $ (toNumber x) - y
-sub (OpNumber x) (OpInt y) = OpNumber $ x - (toNumber y)
-sub (OpNumber x) (OpNumber y) = OpNumber $ x - y
+subtract :: SubtractOperation -> Maybe OpResult -> Effect (Either (Array String) OpResult)
+subtract (SubtractOperation r) v = do
+  m <- makeOperate r.minuend v
+  s <- makeOperate r.subtrahend v
+  let minus = converting (-) (-)
+  pure <<< toEither $ minus <$> V m <*> V s
 
-doTheSubtraction :: Either Error OpResult -> Either Error OpResult -> Either Error OpResult
-doTheSubtraction (Left e1) (Left e2) = Left (concat e1 e2)
-doTheSubtraction (Left e1) _ = Left e1
-doTheSubtraction _ (Left e2) = Left e2
-doTheSubtraction (Right x) (Right y) = Right (sub x y)
-
-subtract :: SubtractOperation -> Maybe OpResult -> Effect (Either Error OpResult)
-subtract (SubtractOperation r) =
-  ( \v -> do
-      m <- makeOperate r.minuend v
-      s <- makeOperate r.subtrahend v
-      pure $ doTheSubtraction m s
-  )
-
-makeOperate :: Operation -> Maybe OpResult -> Effect (Either Error OpResult)
+makeOperate :: Operation -> Maybe OpResult -> Effect (Either (Array String) OpResult)
 makeOperate (AddOp op) = add op
 makeOperate (DivideOp op) = divide op
 makeOperate (FromArgumentOp op) = getFromArgument op
@@ -491,3 +350,19 @@ makeOperate (FromFormFieldOp op) = getFromFormField op
 makeOperate (MultiplyOp op) = multiply op
 makeOperate (NegateOp op) = negate op
 makeOperate (SubtractOp op) = subtract op
+
+converting
+  :: (Int -> Int -> Int) -- What to do on int
+  -> (Number -> Number -> Number) -- What to do on float
+  -> OpResult
+  -> OpResult
+  -> OpResult
+converting f g =
+  case _, _ of
+    OpInt x, OpInt y -> OpInt (f x y)
+    x, y -> OpNumber (g (toNumber' x) (toNumber' y))
+
+  where
+  toNumber' = case _ of
+    OpNumber a -> a
+    OpInt a -> toNumber a
