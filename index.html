@@ -11,10 +11,10 @@
     </form>
     <script type="module" src="/index.js"></script>
     <script type="module">
-      import { createAddOp, createDivideOp, createFromConstantOp, createFromArgumentOp, makeOperate, OpInt } from "./output/Sitebender/index.js";
-      import { Just, Nothing } from "./output/Data.Maybe/index.js"
-      import { Right } from "./output/Data.Either/index.js"
-      import { parseAddOp } from "./output/Sitebender.Json/index.js"
+      import { createAddOp, createDivideOp, createFromConstantOp, createFromArgumentOp, makeOperate, OpInt } from "./output/Sitebender";
+      import { Just, Nothing } from "./output/Data.Maybe"
+      import { Right } from "./output/Data.Either"
+      import { testMe } from "./output/Sitebender.Json"
 
       const argOp = createFromArgumentOp()
       const conOp = createFromConstantOp(OpInt.create(9))
@@ -45,6 +45,74 @@
       console.log("divEm", unwrap(divEm(Just.create(OpInt.create(0)))()))
       console.log("divEm", unwrap(divEm(new Nothing())()))
       console.log("jsonAddOp", jsonAddOp)
+
+      const json = {
+        tag: "AddOp",
+        values: [
+          {
+            tag: "AddOperation",
+            values: [
+              {
+                addends: [
+                  {
+                    tag: "FromConstantOp",
+                    values: [
+                      {
+                        tag: "FromConstantOperation",
+                        values: [
+                          {
+                            tag: "OpInt",
+                            value: {
+                              tag: "OpInt",
+                              values: [9],
+                            },
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    tag: "FromConstantOp",
+                    values: [
+                      {
+                        tag: "FromConstantOperation",
+                        values: [
+                          {
+                            tag: "OpInt",
+                            value: {
+                              tag: "OpInt",
+                              values: [7],
+                            },
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    tag: "FromConstantOp",
+                    values: [
+                      {
+                        tag: "FromConstantOperation",
+                        values: [
+                          {
+                            tag: "OpInt",
+                            value: {
+                              tag: "OpInt",
+                              values: [5],
+                            },
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      console.log("JSON back:", testMe(JSON.stringify(json)));
     </script>
   </body>
 </html>
