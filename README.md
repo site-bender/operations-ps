@@ -6,50 +6,50 @@ The goal here (this is a WIP) is to be able to do calculations with composed fun
 
 ```json
 {
-  "tag": "Subtract",
+  "tag": "SubtractOp",
   "minuend": {
-    "tag": "Add",
+    "tag": "AddOp",
     "addends": [
       {
-        "tag": "FromFormInput",
+        "tag": "FromFormInputOp",
         "name": "x",
-        "datatype": "Int"
+        "datatype": "OpInt"
       },
       {
-        "tag": "FromSessionStore",
+        "tag": "FromSessionStoreOp",
         "key": "y",
-        "datatype": "Int"
+        "datatype": "OpInt"
       },
       {
-        "tag": "FromArgument",
-        "datatype": "Int"
+        "tag": "FromArgumentOp",
+        "datatype": "OpInt"
       }
     ],
     "subtrahend": {
-      "tag": "Multiply",
+      "tag": "MultiplyOp",
       "multipliers" : [
       {
-        "tag": "FromFormInput",
+        "tag": "FromFormInputOp",
         "name": "h",
-        "datatype": "Int"
+        "datatype": "OpInt"
       },
       {
-        "tag": "Divide",
+        "tag": "DivideOp",
         "dividend": {
-          "tag": "FromFormInput",
+          "tag": "FromFormInputOp",
           "name": "m",
-          "datatype": "Int"
+          "datatype": "OpInt"
         },
         "divisor": {
-          "tag": "FromLocalStorage",
+          "tag": "FromLocalStorageOp",
           "name": "n",
-          "datatype": "Int"
+          "datatype": "OpInt"
         }
       },
       {
-        "tag": "FromUrlParam",
+        "tag": "FromUrlParamOp",
         "key": "k",
-        "datatype": "Int"
+        "datatype": "OpInt"
       }]
     }
   }
