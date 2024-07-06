@@ -62,3 +62,4 @@ export {
     contentDocument,
     contentWindow
 };
+//# sourceMappingURL=index.js.map

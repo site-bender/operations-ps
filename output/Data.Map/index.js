@@ -151,3 +151,4 @@ export {
     update,
     values
 } from "../Data.Map.Internal/index.js";
+//# sourceMappingURL=index.js.map

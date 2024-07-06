@@ -29,3 +29,4 @@ var genBoundedEnum = function (dictMonadGen) {
 export {
     genBoundedEnum
 };
+//# sourceMappingURL=index.js.map

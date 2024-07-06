@@ -63,3 +63,4 @@ export {
     monoidMin,
     showMin
 };
+//# sourceMappingURL=index.js.map

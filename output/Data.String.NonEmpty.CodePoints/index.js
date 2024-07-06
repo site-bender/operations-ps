@@ -143,3 +143,4 @@ export {
     countPrefix,
     splitAt
 };
+//# sourceMappingURL=index.js.map

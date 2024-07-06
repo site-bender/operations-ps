@@ -21,3 +21,4 @@ export {
     nowDate,
     nowTime
 };
+//# sourceMappingURL=index.js.map

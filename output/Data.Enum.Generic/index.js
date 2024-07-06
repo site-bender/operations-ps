@@ -316,3 +316,4 @@ export {
     genericBoundedEnumSum,
     genericBoundedEnumProduct
 };
+//# sourceMappingURL=index.js.map

@@ -212,3 +212,4 @@ export {
     plusCompose,
     alternativeCompose
 };
+//# sourceMappingURL=index.js.map

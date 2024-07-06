@@ -7,3 +7,4 @@ export {
     unsafeSet,
     unsafeDelete
 } from "./foreign.js";
+//# sourceMappingURL=index.js.map

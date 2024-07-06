@@ -593,3 +593,4 @@ export {
     week,
     year
 } from "../Data.Interval.Duration/index.js";
+//# sourceMappingURL=index.js.map

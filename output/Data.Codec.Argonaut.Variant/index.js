@@ -122,3 +122,4 @@ export {
     variantCodecNil,
     variantCodecCons
 };
+//# sourceMappingURL=index.js.map

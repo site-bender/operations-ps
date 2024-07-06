@@ -23,3 +23,4 @@ export {
     monadSTEffect,
     monadSTST
 };
+//# sourceMappingURL=index.js.map

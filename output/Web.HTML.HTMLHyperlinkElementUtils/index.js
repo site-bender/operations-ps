@@ -24,3 +24,4 @@ export {
     hash,
     setHash
 } from "./foreign.js";
+//# sourceMappingURL=index.js.map

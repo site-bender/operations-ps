@@ -344,3 +344,4 @@ export {
     foldableTuple,
     foldableIdentity
 };
+//# sourceMappingURL=index.js.map

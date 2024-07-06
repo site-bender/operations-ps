@@ -98,3 +98,4 @@ export {
     monadFirst,
     semigroupFirst
 };
+//# sourceMappingURL=index.js.map

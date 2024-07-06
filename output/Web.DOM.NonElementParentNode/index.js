@@ -14,3 +14,4 @@ var getElementById = function (eid) {
 export {
     getElementById
 };
+//# sourceMappingURL=index.js.map

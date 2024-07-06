@@ -24,3 +24,4 @@ export {
     replace,
     reload
 } from "./foreign.js";
+//# sourceMappingURL=index.js.map

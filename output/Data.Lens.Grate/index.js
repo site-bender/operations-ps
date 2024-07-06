@@ -67,3 +67,4 @@ export {
     zipFWithOf,
     collectOf
 };
+//# sourceMappingURL=index.js.map

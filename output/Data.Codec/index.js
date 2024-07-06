@@ -199,3 +199,4 @@ export {
     applicativeCodec,
     profunctorCodec
 };
+//# sourceMappingURL=index.js.map

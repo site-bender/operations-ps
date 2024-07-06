@@ -59,3 +59,4 @@ export {
     getElementsByTagNameNS,
     createElementNS
 };
+//# sourceMappingURL=index.js.map

@@ -18,3 +18,4 @@ export {
 export {
     compose
 } from "../Control.Semigroupoid/index.js";
+//# sourceMappingURL=index.js.map

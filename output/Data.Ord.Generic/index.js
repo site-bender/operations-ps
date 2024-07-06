@@ -102,3 +102,4 @@ export {
     genericOrdConstructor,
     genericOrdArgument
 };
+//# sourceMappingURL=index.js.map

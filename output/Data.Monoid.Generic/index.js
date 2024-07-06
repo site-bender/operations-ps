@@ -41,3 +41,4 @@ export {
     genericMonoidConstructor,
     genericMonoidArgument
 };
+//# sourceMappingURL=index.js.map

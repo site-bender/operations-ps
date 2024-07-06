@@ -220,3 +220,4 @@ export {
     extendCoproduct,
     comonadCoproduct
 };
+//# sourceMappingURL=index.js.map

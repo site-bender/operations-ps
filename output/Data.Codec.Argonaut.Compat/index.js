@@ -117,3 +117,4 @@ export {
     tuple,
     void
 } from "../Data.Codec.Argonaut.Common/index.js";
+//# sourceMappingURL=index.js.map

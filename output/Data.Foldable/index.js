@@ -969,3 +969,4 @@ export {
     foldableCompose,
     foldableApp
 };
+//# sourceMappingURL=index.js.map

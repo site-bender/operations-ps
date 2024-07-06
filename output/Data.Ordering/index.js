@@ -87,3 +87,4 @@ export {
     semigroupOrdering,
     showOrdering
 };
+//# sourceMappingURL=index.js.map

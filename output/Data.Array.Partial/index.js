@@ -27,3 +27,4 @@ export {
     last,
     init
 };
+//# sourceMappingURL=index.js.map

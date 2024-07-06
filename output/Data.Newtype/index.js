@@ -195,3 +195,4 @@ export {
     newtypeFirst,
     newtypeLast
 };
+//# sourceMappingURL=index.js.map

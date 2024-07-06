@@ -9,3 +9,4 @@ export {
     removeEventListener,
     dispatchEvent
 } from "./foreign.js";
+//# sourceMappingURL=index.js.map

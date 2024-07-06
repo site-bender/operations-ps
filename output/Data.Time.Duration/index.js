@@ -254,3 +254,4 @@ export {
     durationHours,
     durationDays
 };
+//# sourceMappingURL=index.js.map

@@ -118,3 +118,4 @@ export {
     choiceIndexed,
     wanderIndexed
 };
+//# sourceMappingURL=index.js.map

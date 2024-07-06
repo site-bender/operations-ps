@@ -71,3 +71,4 @@ export {
     bilift3,
     biapplyTuple
 };
+//# sourceMappingURL=index.js.map

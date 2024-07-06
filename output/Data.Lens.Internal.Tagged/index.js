@@ -155,3 +155,4 @@ export {
     foldableTagged,
     traversableTagged
 };
+//# sourceMappingURL=index.js.map

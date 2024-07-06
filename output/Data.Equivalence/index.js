@@ -58,3 +58,4 @@ export {
     semigroupEquivalence,
     monoidEquivalence
 };
+//# sourceMappingURL=index.js.map

@@ -180,3 +180,4 @@ export {
     semigroupNonEmptyReplacement,
     showNonEmptyReplacement
 };
+//# sourceMappingURL=index.js.map

@@ -126,3 +126,4 @@ export {
     map,
     void
 } from "../Data.Functor/index.js";
+//# sourceMappingURL=index.js.map

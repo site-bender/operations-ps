@@ -19,3 +19,4 @@ export {
     genSecond,
     genMillisecond
 };
+//# sourceMappingURL=index.js.map

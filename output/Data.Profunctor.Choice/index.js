@@ -59,3 +59,4 @@ export {
     fanin,
     choiceFn
 };
+//# sourceMappingURL=index.js.map

@@ -343,3 +343,4 @@ export {
     monadRecEither,
     monadRecMaybe
 };
+//# sourceMappingURL=index.js.map

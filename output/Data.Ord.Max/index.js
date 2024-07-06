@@ -63,3 +63,4 @@ export {
     monoidMax,
     showMax
 };
+//# sourceMappingURL=index.js.map

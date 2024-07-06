@@ -49,3 +49,4 @@ export {
     categoryOp,
     contravariantOp
 };
+//# sourceMappingURL=index.js.map

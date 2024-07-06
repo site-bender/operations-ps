@@ -108,3 +108,4 @@ export {
     itraversed,
     positions
 };
+//# sourceMappingURL=index.js.map

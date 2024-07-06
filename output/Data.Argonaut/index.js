@@ -106,3 +106,4 @@ export {
     _JsonObject,
     _JsonString
 } from "../Data.Argonaut.Traversals/index.js";
+//# sourceMappingURL=index.js.map

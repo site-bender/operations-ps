@@ -43,3 +43,4 @@ export {
     mapWriterT,
     runWriterT
 } from "../Control.Monad.Writer.Trans/index.js";
+//# sourceMappingURL=index.js.map

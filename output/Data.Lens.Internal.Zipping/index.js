@@ -40,3 +40,4 @@ export {
     profunctorZipping,
     closedZipping
 };
+//# sourceMappingURL=index.js.map

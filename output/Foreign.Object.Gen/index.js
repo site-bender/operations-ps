@@ -35,3 +35,4 @@ var genForeignObject = function (dictMonadRec) {
 export {
     genForeignObject
 };
+//# sourceMappingURL=index.js.map

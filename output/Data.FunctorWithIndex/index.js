@@ -249,3 +249,4 @@ export {
     functorWithIndexCompose,
     functorWithIndexApp
 };
+//# sourceMappingURL=index.js.map

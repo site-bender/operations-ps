@@ -141,3 +141,4 @@ export {
     semigroupST,
     monoidST
 };
+//# sourceMappingURL=index.js.map

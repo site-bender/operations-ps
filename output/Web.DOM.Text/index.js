@@ -28,3 +28,4 @@ export {
     toNonDocumentTypeChildNode,
     toEventTarget
 };
+//# sourceMappingURL=index.js.map

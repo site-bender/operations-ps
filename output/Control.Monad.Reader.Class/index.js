@@ -35,3 +35,4 @@ export {
     monadAskFun,
     monadReaderFun
 };
+//# sourceMappingURL=index.js.map

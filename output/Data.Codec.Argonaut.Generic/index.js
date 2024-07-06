@@ -87,3 +87,4 @@ export {
     nullarySumCodecSum,
     nullarySumCodecCtor
 };
+//# sourceMappingURL=index.js.map

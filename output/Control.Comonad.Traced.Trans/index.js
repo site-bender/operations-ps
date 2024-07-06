@@ -94,3 +94,4 @@ export {
     comonadTracedT,
     comonadTransTracedT
 };
+//# sourceMappingURL=index.js.map

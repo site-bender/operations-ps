@@ -21,3 +21,4 @@ export {
     resize,
     sized
 };
+//# sourceMappingURL=index.js.map

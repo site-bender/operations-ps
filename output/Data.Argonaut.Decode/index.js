@@ -33,3 +33,4 @@ export {
 export {
     parseJson
 } from "../Data.Argonaut.Decode.Parser/index.js";
+//# sourceMappingURL=index.js.map

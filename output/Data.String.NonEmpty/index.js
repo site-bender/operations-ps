@@ -50,3 +50,4 @@ export {
 export {
     Pattern
 } from "../Data.String.Pattern/index.js";
+//# sourceMappingURL=index.js.map

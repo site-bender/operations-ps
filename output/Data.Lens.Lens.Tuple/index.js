@@ -14,3 +14,4 @@ export {
     first,
     second
 } from "../Data.Profunctor.Strong/index.js";
+//# sourceMappingURL=index.js.map

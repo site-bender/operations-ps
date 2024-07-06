@@ -28,3 +28,4 @@ export {
     newValue,
     storageArea
 };
+//# sourceMappingURL=index.js.map

@@ -128,3 +128,4 @@ export {
     semigroupoidBuilder,
     categoryBuilder
 };
+//# sourceMappingURL=index.js.map

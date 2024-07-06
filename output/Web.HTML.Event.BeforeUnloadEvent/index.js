@@ -12,3 +12,4 @@ export {
     fromEvent,
     toEvent
 };
+//# sourceMappingURL=index.js.map

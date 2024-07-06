@@ -373,3 +373,4 @@ export {
     unfoldable1NonEmpty,
     semigroupNonEmpty
 };
+//# sourceMappingURL=index.js.map

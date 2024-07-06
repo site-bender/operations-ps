@@ -906,3 +906,4 @@ export {
     traversableWithIndexNonEmptyList,
     traversable1NonEmptyList
 };
+//# sourceMappingURL=index.js.map

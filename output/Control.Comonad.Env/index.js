@@ -34,3 +34,4 @@ export {
     runEnvT,
     withEnvT
 } from "../Control.Comonad.Env.Trans/index.js";
+//# sourceMappingURL=index.js.map

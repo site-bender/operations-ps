@@ -28,3 +28,4 @@ export {
     key,
     getItem
 };
+//# sourceMappingURL=index.js.map

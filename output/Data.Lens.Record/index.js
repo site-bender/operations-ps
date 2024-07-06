@@ -18,3 +18,4 @@ var prop = function (dictIsSymbol) {
 export {
     prop
 };
+//# sourceMappingURL=index.js.map

@@ -91,3 +91,4 @@ export {
     dividePredicate,
     divideOp
 };
+//# sourceMappingURL=index.js.map

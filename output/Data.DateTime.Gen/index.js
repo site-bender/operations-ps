@@ -25,3 +25,4 @@ export {
     genSecond,
     genTime
 } from "../Data.Time.Gen/index.js";
+//# sourceMappingURL=index.js.map

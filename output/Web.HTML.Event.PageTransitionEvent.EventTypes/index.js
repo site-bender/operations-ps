@@ -5,3 +5,4 @@ export {
     pagehide,
     pageshow
 };
+//# sourceMappingURL=index.js.map

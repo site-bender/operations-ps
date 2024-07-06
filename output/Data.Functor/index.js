@@ -66,3 +66,4 @@ export {
     functorArray,
     functorProxy
 };
+//# sourceMappingURL=index.js.map

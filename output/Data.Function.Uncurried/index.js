@@ -32,3 +32,4 @@ export {
     mkFn1,
     runFn1
 };
+//# sourceMappingURL=index.js.map

@@ -117,3 +117,4 @@ export {
     eqRequestIdleCallbackId,
     ordRequestIdleCallbackId
 };
+//# sourceMappingURL=index.js.map

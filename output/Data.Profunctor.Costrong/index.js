@@ -9,3 +9,4 @@ export {
     unfirst,
     unsecond
 };
+//# sourceMappingURL=index.js.map

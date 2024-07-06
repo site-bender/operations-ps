@@ -20,3 +20,4 @@ export {
     $$null as null,
     localeCompare
 };
+//# sourceMappingURL=index.js.map

@@ -1,0 +1,16 @@
+{
+  "name": "argonaut-generic",
+  "version": "8.0.0",
+  "license": "MIT",
+  "description": "Encoding and decoding functions for generic datatypes",
+  "location": {
+    "githubOwner": "purescript-contrib",
+    "githubRepo": "purescript-argonaut-generic"
+  },
+  "dependencies": {
+    "argonaut-codecs": ">=9.0.0 <10.0.0",
+    "argonaut-core": ">=7.0.0 <8.0.0",
+    "prelude": ">=6.0.0 <7.0.0",
+    "record": ">=4.0.0 <5.0.0"
+  }
+}

@@ -100,3 +100,4 @@ export {
     ordURL,
     newtypeURL
 };
+//# sourceMappingURL=index.js.map

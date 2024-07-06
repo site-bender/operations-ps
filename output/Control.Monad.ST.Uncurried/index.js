@@ -23,3 +23,4 @@ export {
     runSTFn9,
     runSTFn10
 } from "./foreign.js";
+//# sourceMappingURL=index.js.map

@@ -40,3 +40,4 @@ export {
     Pattern,
     Replacement
 } from "../Data.String.Pattern/index.js";
+//# sourceMappingURL=index.js.map

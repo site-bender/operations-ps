@@ -91,3 +91,4 @@ export {
     genericTopProduct,
     genericTopConstructor
 };
+//# sourceMappingURL=index.js.map

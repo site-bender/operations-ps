@@ -83,3 +83,4 @@ export {
     pass,
     tell
 } from "../Control.Monad.Writer.Class/index.js";
+//# sourceMappingURL=index.js.map

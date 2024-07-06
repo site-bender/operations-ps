@@ -1,0 +1,25 @@
+package:
+  name: operations
+  dependencies:
+    - argonaut
+    - argonaut-generic
+    - codec-argonaut
+    - console
+    - control
+    - effect
+    - foldable-traversable
+    - lists
+    - maybe
+    - prelude
+    - strings
+    - validation
+    - web-dom
+    - web-html
+    - web-storage
+  test:
+    main: Test.Main
+    dependencies: []
+workspace:
+  packageSet:
+    registry: 53.2.0
+  extraPackages: {}

@@ -103,3 +103,4 @@ export {
     biapplicativeClown,
     profunctorClown
 };
+//# sourceMappingURL=index.js.map

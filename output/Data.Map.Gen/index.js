@@ -37,3 +37,4 @@ var genMap = function (dictMonadRec) {
 export {
     genMap
 };
+//# sourceMappingURL=index.js.map

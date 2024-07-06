@@ -52,3 +52,4 @@ export {
     mode,
     showShadowRootMode
 };
+//# sourceMappingURL=index.js.map

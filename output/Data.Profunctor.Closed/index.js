@@ -14,3 +14,4 @@ export {
     closed,
     closedFunction
 };
+//# sourceMappingURL=index.js.map

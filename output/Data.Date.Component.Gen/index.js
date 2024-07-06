@@ -27,3 +27,4 @@ export {
     genDay,
     genWeekday
 };
+//# sourceMappingURL=index.js.map

@@ -258,3 +258,4 @@ export {
     resize,
     sized
 } from "../Control.Monad.Gen.Class/index.js";
+//# sourceMappingURL=index.js.map

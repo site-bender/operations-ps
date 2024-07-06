@@ -71,3 +71,4 @@ export {
     biapplyJoin,
     biapplicativeJoin
 };
+//# sourceMappingURL=index.js.map

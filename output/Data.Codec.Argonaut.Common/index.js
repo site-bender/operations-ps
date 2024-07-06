@@ -251,3 +251,4 @@ export {
     string,
     void
 } from "../Data.Codec.Argonaut/index.js";
+//# sourceMappingURL=index.js.map

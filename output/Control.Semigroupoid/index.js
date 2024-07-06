@@ -24,3 +24,4 @@ export {
     composeFlipped,
     semigroupoidFn
 };
+//# sourceMappingURL=index.js.map

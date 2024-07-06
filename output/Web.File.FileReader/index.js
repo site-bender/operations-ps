@@ -27,3 +27,4 @@ export {
     toEventTarget,
     readyState
 };
+//# sourceMappingURL=index.js.map

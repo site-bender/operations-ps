@@ -150,3 +150,4 @@ export {
     monoidRecordNil,
     monoidRecordCons
 };
+//# sourceMappingURL=index.js.map

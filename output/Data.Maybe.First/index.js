@@ -97,3 +97,4 @@ export {
     plusFirst,
     alternativeFirst
 };
+//# sourceMappingURL=index.js.map

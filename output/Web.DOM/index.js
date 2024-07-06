@@ -17,3 +17,4 @@ import * as Web_DOM_ParentNode from "../Web.DOM.ParentNode/index.js";
 import * as Web_DOM_ProcessingInstruction from "../Web.DOM.ProcessingInstruction/index.js";
 import * as Web_DOM_Text from "../Web.DOM.Text/index.js";
 
+//# sourceMappingURL=index.js.map

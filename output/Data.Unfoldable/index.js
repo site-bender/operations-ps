@@ -81,3 +81,4 @@ export {
     singleton,
     unfoldr1
 } from "../Data.Unfoldable1/index.js";
+//# sourceMappingURL=index.js.map

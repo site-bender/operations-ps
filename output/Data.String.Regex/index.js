@@ -83,3 +83,4 @@ export {
     search,
     showRegex
 };
+//# sourceMappingURL=index.js.map

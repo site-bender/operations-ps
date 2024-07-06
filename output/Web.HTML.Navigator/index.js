@@ -8,3 +8,4 @@ export {
     platform,
     userAgent
 } from "./foreign.js";
+//# sourceMappingURL=index.js.map

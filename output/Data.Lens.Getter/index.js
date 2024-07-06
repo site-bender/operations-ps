@@ -62,3 +62,4 @@ export {
 export {
     Indexed
 } from "../Data.Lens.Types/index.js";
+//# sourceMappingURL=index.js.map

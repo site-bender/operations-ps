@@ -9,3 +9,4 @@ var unsafeReadProtoTagged = function (name) {
 export {
     unsafeReadProtoTagged
 };
+//# sourceMappingURL=index.js.map

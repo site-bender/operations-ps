@@ -127,3 +127,4 @@ export {
 export {
     NonEmptyList
 } from "../Data.List.Lazy.Types/index.js";
+//# sourceMappingURL=index.js.map

@@ -11,3 +11,4 @@ export {
     crash,
     crashWith
 };
+//# sourceMappingURL=index.js.map

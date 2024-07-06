@@ -91,3 +91,4 @@ export {
     genericEqConstructor,
     genericEqArgument
 };
+//# sourceMappingURL=index.js.map

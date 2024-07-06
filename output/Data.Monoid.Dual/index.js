@@ -113,3 +113,4 @@ export {
     semigroupDual,
     monoidDual
 };
+//# sourceMappingURL=index.js.map

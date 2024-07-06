@@ -97,3 +97,4 @@ export {
     closest,
     attachShadow
 };
+//# sourceMappingURL=index.js.map

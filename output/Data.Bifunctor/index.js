@@ -56,3 +56,4 @@ export {
     bifunctorTuple,
     bifunctorConst
 };
+//# sourceMappingURL=index.js.map

@@ -159,3 +159,4 @@ export {
     biapplicativeProduct2,
     profunctorProduct2
 };
+//# sourceMappingURL=index.js.map

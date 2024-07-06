@@ -7,3 +7,4 @@ var defaultEncoding = {
 export {
     defaultEncoding
 };
+//# sourceMappingURL=index.js.map

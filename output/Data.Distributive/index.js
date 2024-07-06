@@ -121,3 +121,4 @@ export {
     distributiveFunction,
     distributiveTuple
 };
+//# sourceMappingURL=index.js.map

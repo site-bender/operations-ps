@@ -14,3 +14,4 @@ export {
     liftEffect,
     monadEffectEffect
 };
+//# sourceMappingURL=index.js.map

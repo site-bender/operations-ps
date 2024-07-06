@@ -168,3 +168,4 @@ export {
     extendIdentity,
     comonadIdentity
 };
+//# sourceMappingURL=index.js.map

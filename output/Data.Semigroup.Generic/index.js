@@ -72,3 +72,4 @@ export {
     genericSemigroupConstructor,
     genericSemigroupArgument
 };
+//# sourceMappingURL=index.js.map

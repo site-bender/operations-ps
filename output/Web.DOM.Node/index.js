@@ -117,3 +117,4 @@ export {
     lookupPrefix,
     lookupNamespaceURI
 };
+//# sourceMappingURL=index.js.map

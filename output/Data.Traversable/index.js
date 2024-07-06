@@ -653,3 +653,4 @@ export {
     sum,
     traverse_
 } from "../Data.Foldable/index.js";
+//# sourceMappingURL=index.js.map

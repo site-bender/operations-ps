@@ -77,3 +77,4 @@ export {
     comonadStoreT,
     comonadTransStoreT
 };
+//# sourceMappingURL=index.js.map

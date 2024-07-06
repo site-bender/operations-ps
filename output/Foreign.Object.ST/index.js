@@ -12,3 +12,4 @@ export {
 export {
     peek
 };
+//# sourceMappingURL=index.js.map

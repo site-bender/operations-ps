@@ -529,3 +529,4 @@ export {
     unsafeGet,
     unsafeHas
 } from "../Record.Unsafe/index.js";
+//# sourceMappingURL=index.js.map

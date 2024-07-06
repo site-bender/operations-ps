@@ -139,3 +139,4 @@ export {
     applyConst,
     applicativeConst
 };
+//# sourceMappingURL=index.js.map

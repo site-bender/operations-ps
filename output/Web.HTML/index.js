@@ -72,3 +72,4 @@ import * as Web_HTML_Window from "../Web.HTML.Window/index.js";
 export {
     window
 } from "./foreign.js";
+//# sourceMappingURL=index.js.map

@@ -211,3 +211,4 @@ export {
     genericHeytingAlgebraProduct,
     genericHeytingAlgebraConstructor
 };
+//# sourceMappingURL=index.js.map

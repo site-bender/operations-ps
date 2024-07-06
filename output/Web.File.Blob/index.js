@@ -48,3 +48,4 @@ export {
     idxFromNumber,
     slice$prime
 };
+//# sourceMappingURL=index.js.map

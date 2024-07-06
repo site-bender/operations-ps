@@ -3,3 +3,4 @@ var beforeunload = "beforeunload";
 export {
     beforeunload
 };
+//# sourceMappingURL=index.js.map

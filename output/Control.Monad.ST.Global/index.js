@@ -4,3 +4,4 @@ var toEffect = Unsafe_Coerce.unsafeCoerce;
 export {
     toEffect
 };
+//# sourceMappingURL=index.js.map

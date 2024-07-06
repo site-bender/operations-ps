@@ -139,3 +139,4 @@ export {
     genericSemiringProduct,
     genericSemiringConstructor
 };
+//# sourceMappingURL=index.js.map

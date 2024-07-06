@@ -89,3 +89,4 @@ export {
     insertRow,
     insertRow$prime
 };
+//# sourceMappingURL=index.js.map

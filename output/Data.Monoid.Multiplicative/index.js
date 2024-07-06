@@ -112,3 +112,4 @@ export {
     semigroupMultiplicative,
     monoidMultiplicative
 };
+//# sourceMappingURL=index.js.map

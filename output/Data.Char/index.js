@@ -6,3 +6,4 @@ export {
     toCharCode,
     fromCharCode
 };
+//# sourceMappingURL=index.js.map

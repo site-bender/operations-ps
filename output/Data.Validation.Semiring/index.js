@@ -280,3 +280,4 @@ export {
     foldableV,
     traversableV
 };
+//# sourceMappingURL=index.js.map

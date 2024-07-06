@@ -5,3 +5,4 @@ export {
     createObjectURL,
     revokeObjectURL
 } from "./foreign.js";
+//# sourceMappingURL=index.js.map

@@ -51,3 +51,4 @@ export {
     sqrt2,
     tau
 };
+//# sourceMappingURL=index.js.map

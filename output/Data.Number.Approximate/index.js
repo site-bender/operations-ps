@@ -40,3 +40,4 @@ export {
     Tolerance,
     eqAbsolute
 };
+//# sourceMappingURL=index.js.map

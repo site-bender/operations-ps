@@ -448,3 +448,4 @@ export {
     bifoldableTuple,
     bifoldableConst
 };
+//# sourceMappingURL=index.js.map

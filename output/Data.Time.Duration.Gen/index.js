@@ -24,3 +24,4 @@ export {
     genHours,
     genDays
 };
+//# sourceMappingURL=index.js.map

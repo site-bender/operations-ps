@@ -363,3 +363,4 @@ export {
     Tuesday,
     Wednesday
 } from "../Data.Date.Component/index.js";
+//# sourceMappingURL=index.js.map

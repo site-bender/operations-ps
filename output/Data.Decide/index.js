@@ -125,3 +125,4 @@ export {
     choosePredicate,
     chooseOp
 };
+//# sourceMappingURL=index.js.map

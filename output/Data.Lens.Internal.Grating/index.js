@@ -44,3 +44,4 @@ export {
     profunctorGrating,
     closedGrating
 };
+//# sourceMappingURL=index.js.map

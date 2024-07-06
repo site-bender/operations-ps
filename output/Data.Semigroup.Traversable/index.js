@@ -124,3 +124,4 @@ export {
     traversableTuple,
     traversableIdentity
 };
+//# sourceMappingURL=index.js.map

@@ -406,3 +406,4 @@ export {
     GT,
     LT
 } from "../Data.Ordering/index.js";
+//# sourceMappingURL=index.js.map

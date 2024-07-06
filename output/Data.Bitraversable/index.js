@@ -354,3 +354,4 @@ export {
     bisequence_,
     bitraverse_
 } from "../Data.Bifoldable/index.js";
+//# sourceMappingURL=index.js.map

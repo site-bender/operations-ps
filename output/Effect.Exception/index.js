@@ -22,11 +22,13 @@ var showError = {
     show: $foreign.showErrorImpl
 };
 export {
+    catchException,
     error,
+    errorWithCause,
+    errorWithName,
     message,
     name,
-    throwException,
-    catchException
+    throwException
 } from "./foreign.js";
 export {
     stack,
@@ -34,3 +36,4 @@ export {
     $$try as try,
     showError
 };
+//# sourceMappingURL=index.js.map

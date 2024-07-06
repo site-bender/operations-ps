@@ -26,3 +26,4 @@ var keys = function (dictMonad) {
 export {
     keys
 };
+//# sourceMappingURL=index.js.map

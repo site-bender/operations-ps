@@ -39,3 +39,4 @@ export {
     injectLeft,
     injectRight
 };
+//# sourceMappingURL=index.js.map

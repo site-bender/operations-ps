@@ -49,3 +49,4 @@ export {
     ordQuerySelector,
     newtypeQuerySelector
 };
+//# sourceMappingURL=index.js.map

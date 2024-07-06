@@ -5,3 +5,4 @@ export {
     char,
     charAt
 } from "./foreign.js";
+//# sourceMappingURL=index.js.map

@@ -48,3 +48,4 @@ var genJCursor = function (dictMonadGen) {
 export {
     genJCursor
 };
+//# sourceMappingURL=index.js.map

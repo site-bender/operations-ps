@@ -3,3 +3,4 @@ var popstate = "popstate";
 export {
     popstate
 };
+//# sourceMappingURL=index.js.map

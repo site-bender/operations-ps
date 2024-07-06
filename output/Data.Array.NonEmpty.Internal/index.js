@@ -102,3 +102,4 @@ export {
     monadNonEmptyArray,
     altNonEmptyArray
 };
+//# sourceMappingURL=index.js.map

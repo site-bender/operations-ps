@@ -68,3 +68,4 @@ export {
     exponential,
     toStringWith
 };
+//# sourceMappingURL=index.js.map

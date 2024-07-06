@@ -38,3 +38,4 @@ export {
     functorExchange,
     profunctorExchange
 };
+//# sourceMappingURL=index.js.map

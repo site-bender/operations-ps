@@ -5,3 +5,4 @@ var lift = function (dict) {
 export {
     lift
 };
+//# sourceMappingURL=index.js.map

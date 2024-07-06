@@ -56,3 +56,4 @@ export {
     toEventTarget,
     form
 };
+//# sourceMappingURL=index.js.map

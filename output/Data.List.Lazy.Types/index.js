@@ -960,3 +960,4 @@ export {
     foldableWithIndexNonEmptyList,
     traversableWithIndexNonEmptyList
 };
+//# sourceMappingURL=index.js.map

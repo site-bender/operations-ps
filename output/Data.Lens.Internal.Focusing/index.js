@@ -66,3 +66,4 @@ export {
     focusingApply,
     focusingApplicative
 };
+//# sourceMappingURL=index.js.map

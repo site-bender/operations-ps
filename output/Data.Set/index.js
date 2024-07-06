@@ -271,3 +271,4 @@ export {
     semigroupSet,
     foldableSet
 };
+//# sourceMappingURL=index.js.map

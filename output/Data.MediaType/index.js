@@ -40,3 +40,4 @@ export {
     ordMediaType,
     showMediaType
 };
+//# sourceMappingURL=index.js.map

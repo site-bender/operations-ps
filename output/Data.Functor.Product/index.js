@@ -215,3 +215,4 @@ export {
     bindProduct,
     monadProduct
 };
+//# sourceMappingURL=index.js.map

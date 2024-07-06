@@ -47,3 +47,4 @@ export {
     genWeekday,
     genYear
 } from "../Data.Date.Component.Gen/index.js";
+//# sourceMappingURL=index.js.map

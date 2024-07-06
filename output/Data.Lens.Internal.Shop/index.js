@@ -56,3 +56,4 @@ export {
     profunctorShop,
     strongShop
 };
+//# sourceMappingURL=index.js.map

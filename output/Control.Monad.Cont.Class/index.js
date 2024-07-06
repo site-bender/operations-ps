@@ -5,3 +5,4 @@ var callCC = function (dict) {
 export {
     callCC
 };
+//# sourceMappingURL=index.js.map

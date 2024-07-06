@@ -188,3 +188,4 @@ export {
     profunctorJoker,
     choiceJoker
 };
+//# sourceMappingURL=index.js.map

@@ -64,3 +64,4 @@ export {
     genericRingProduct,
     genericRingConstructor
 };
+//# sourceMappingURL=index.js.map

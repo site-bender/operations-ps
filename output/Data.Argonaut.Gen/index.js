@@ -72,3 +72,4 @@ var genJson = function (dictMonadGen) {
 export {
     genJson
 };
+//# sourceMappingURL=index.js.map

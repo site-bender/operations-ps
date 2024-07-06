@@ -155,3 +155,4 @@ export {
     monadThrowEffect,
     monadErrorEffect
 };
+//# sourceMappingURL=index.js.map

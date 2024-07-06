@@ -104,3 +104,4 @@ export {
     semigroupAlternate,
     monoidAlternate
 };
+//# sourceMappingURL=index.js.map

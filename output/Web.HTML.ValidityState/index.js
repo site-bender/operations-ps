@@ -25,3 +25,4 @@ export {
     customError,
     valid
 };
+//# sourceMappingURL=index.js.map

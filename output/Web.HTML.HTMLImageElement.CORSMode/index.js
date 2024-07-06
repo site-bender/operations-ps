@@ -91,3 +91,4 @@ export {
     ordCORSMode,
     showDecodingHint
 };
+//# sourceMappingURL=index.js.map

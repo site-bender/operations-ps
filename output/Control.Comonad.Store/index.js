@@ -30,3 +30,4 @@ export {
     StoreT,
     runStoreT
 } from "../Control.Comonad.Store.Trans/index.js";
+//# sourceMappingURL=index.js.map

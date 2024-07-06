@@ -209,3 +209,4 @@ export {
     semiringRecordNil,
     semiringRecordCons
 };
+//# sourceMappingURL=index.js.map

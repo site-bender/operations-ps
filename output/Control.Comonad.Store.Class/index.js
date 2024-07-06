@@ -130,3 +130,4 @@ export {
     comonadStoreEnvT,
     comonadStoreTracedT
 };
+//# sourceMappingURL=index.js.map

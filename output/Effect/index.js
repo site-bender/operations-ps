@@ -82,3 +82,4 @@ export {
     semigroupEffect,
     monoidEffect
 };
+//# sourceMappingURL=index.js.map

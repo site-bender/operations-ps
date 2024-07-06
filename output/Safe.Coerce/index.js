@@ -6,3 +6,4 @@ var coerce = function () {
 export {
     coerce
 };
+//# sourceMappingURL=index.js.map

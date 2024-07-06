@@ -355,3 +355,4 @@ export {
     stripPrefix,
     stripSuffix
 } from "../Data.String.CodeUnits/index.js";
+//# sourceMappingURL=index.js.map

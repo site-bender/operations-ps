@@ -90,3 +90,4 @@ export {
     attributeNamespace,
     oldValue
 };
+//# sourceMappingURL=index.js.map

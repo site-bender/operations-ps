@@ -169,3 +169,4 @@ export {
     extendApp,
     comonadApp
 };
+//# sourceMappingURL=index.js.map

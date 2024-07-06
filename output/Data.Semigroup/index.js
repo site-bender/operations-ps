@@ -101,3 +101,4 @@ export {
     semigroupRecordNil,
     semigroupRecordCons
 };
+//# sourceMappingURL=index.js.map

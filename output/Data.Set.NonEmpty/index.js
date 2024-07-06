@@ -206,3 +206,4 @@ export {
     foldable1NonEmptySet,
     showNonEmptySet
 };
+//# sourceMappingURL=index.js.map

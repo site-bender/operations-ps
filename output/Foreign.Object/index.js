@@ -476,3 +476,4 @@ export {
     semigroupObject,
     monoidObject
 };
+//# sourceMappingURL=index.js.map

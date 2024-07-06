@@ -20,3 +20,4 @@ export {
     previousElementSibling,
     nextElementSibling
 };
+//# sourceMappingURL=index.js.map

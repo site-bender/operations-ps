@@ -10,3 +10,4 @@ export {
     zshr,
     complement
 } from "./foreign.js";
+//# sourceMappingURL=index.js.map

@@ -41,3 +41,4 @@ export {
     toEventTarget,
     create$prime
 };
+//# sourceMappingURL=index.js.map

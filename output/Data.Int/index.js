@@ -244,3 +244,4 @@ export {
     euclideanRingParity,
     divisionRingParity
 };
+//# sourceMappingURL=index.js.map

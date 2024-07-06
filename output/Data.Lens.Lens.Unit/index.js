@@ -8,3 +8,4 @@ var united = function (dictStrong) {
 export {
     united
 };
+//# sourceMappingURL=index.js.map

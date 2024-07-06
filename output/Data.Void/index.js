@@ -19,3 +19,4 @@ var absurd = function (a) {
 export {
     absurd
 };
+//# sourceMappingURL=index.js.map

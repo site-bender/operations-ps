@@ -28,3 +28,4 @@ export {
 export {
     Proxy
 } from "../Type.Proxy/index.js";
+//# sourceMappingURL=index.js.map

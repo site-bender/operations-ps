@@ -159,3 +159,4 @@ export {
     LT,
     compare
 } from "../Data.Ord/index.js";
+//# sourceMappingURL=index.js.map

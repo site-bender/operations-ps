@@ -292,3 +292,4 @@ export {
     heytingAlgebraRecordNil,
     heytingAlgebraRecordCons
 };
+//# sourceMappingURL=index.js.map

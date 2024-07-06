@@ -48,3 +48,4 @@ export {
     divisiblePredicate,
     divisibleOp
 };
+//# sourceMappingURL=index.js.map

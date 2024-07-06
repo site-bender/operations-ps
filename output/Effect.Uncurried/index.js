@@ -467,3 +467,4 @@ export {
     monoidEffectFn9,
     monoidEffectFn10
 };
+//# sourceMappingURL=index.js.map

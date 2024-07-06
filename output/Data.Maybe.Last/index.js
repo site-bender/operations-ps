@@ -100,3 +100,4 @@ export {
     plusLast,
     alternativeLast
 };
+//# sourceMappingURL=index.js.map

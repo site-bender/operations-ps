@@ -27,3 +27,4 @@ export {
     booleanAlgebraPredicate,
     contravariantPredicate
 };
+//# sourceMappingURL=index.js.map

@@ -112,3 +112,4 @@ export {
     semigroupAdditive,
     monoidAdditive
 };
+//# sourceMappingURL=index.js.map

@@ -353,3 +353,4 @@ export {
     boundedEither,
     semigroupEither
 };
+//# sourceMappingURL=index.js.map

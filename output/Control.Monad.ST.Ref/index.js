@@ -8,3 +8,4 @@ export {
     read,
     write
 } from "../Control.Monad.ST.Internal/index.js";
+//# sourceMappingURL=index.js.map

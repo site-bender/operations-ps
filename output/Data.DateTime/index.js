@@ -204,3 +204,4 @@ export {
     setMinute,
     setSecond
 } from "../Data.Time/index.js";
+//# sourceMappingURL=index.js.map

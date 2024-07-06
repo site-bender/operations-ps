@@ -107,3 +107,4 @@ export {
     unfoldable1Array,
     unfoldable1Maybe
 };
+//# sourceMappingURL=index.js.map

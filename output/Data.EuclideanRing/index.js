@@ -89,3 +89,4 @@ export {
     one,
     zero
 } from "../Data.Semiring/index.js";
+//# sourceMappingURL=index.js.map

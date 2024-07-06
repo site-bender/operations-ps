@@ -72,3 +72,4 @@ export {
     not,
     tt
 } from "../Data.HeytingAlgebra/index.js";
+//# sourceMappingURL=index.js.map

@@ -7,7 +7,6 @@ import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Effect.Console (log)
 import Sitebender (OpResult(..), Operation, createAddOp, createDivideOp, createFromArgumentOp, createFromFormFieldOp, createFromLocalStorageOp, createFromSessionStorageOp, makeOperate)
-import Sitebender.Json (AddOpRow, parseAddOp)
 
 input0 :: Operation
 input0 = createFromFormFieldOp

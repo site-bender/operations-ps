@@ -25,3 +25,4 @@ export {
     TracedT,
     runTracedT
 } from "../Control.Comonad.Traced.Trans/index.js";
+//# sourceMappingURL=index.js.map

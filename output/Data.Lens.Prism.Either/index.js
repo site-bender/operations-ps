@@ -14,3 +14,4 @@ export {
     left,
     right
 } from "../Data.Profunctor.Choice/index.js";
+//# sourceMappingURL=index.js.map

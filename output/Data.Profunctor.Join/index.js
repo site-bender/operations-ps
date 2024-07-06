@@ -66,3 +66,4 @@ export {
     monoidJoin,
     invariantJoin
 };
+//# sourceMappingURL=index.js.map

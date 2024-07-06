@@ -131,3 +131,4 @@ export {
     monoidConj,
     semiringConj
 };
+//# sourceMappingURL=index.js.map

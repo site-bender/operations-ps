@@ -188,3 +188,4 @@ export {
     indexMap,
     indexForeignObject
 };
+//# sourceMappingURL=index.js.map

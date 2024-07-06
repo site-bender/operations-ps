@@ -127,3 +127,4 @@ export {
 export {
     absurd
 } from "../Data.Void/index.js";
+//# sourceMappingURL=index.js.map

@@ -47,3 +47,4 @@ export {
     semigroupComparison,
     monoidComparison
 };
+//# sourceMappingURL=index.js.map

@@ -4,3 +4,4 @@ import * as $foreign from "./foreign.js";
 export {
     unsafeCoerce
 } from "./foreign.js";
+//# sourceMappingURL=index.js.map

@@ -87,3 +87,4 @@ export {
     functorSplit,
     profunctorSplit
 };
+//# sourceMappingURL=index.js.map

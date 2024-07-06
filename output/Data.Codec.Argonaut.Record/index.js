@@ -84,3 +84,4 @@ export {
     rowListCodecConsOptional,
     rowListCodecCons
 };
+//# sourceMappingURL=index.js.map

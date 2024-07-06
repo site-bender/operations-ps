@@ -121,3 +121,4 @@ export {
     semigroupoidFlip,
     categoryFlip
 };
+//# sourceMappingURL=index.js.map

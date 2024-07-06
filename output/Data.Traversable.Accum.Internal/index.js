@@ -109,3 +109,4 @@ export {
     applyStateR,
     applicativeStateR
 };
+//# sourceMappingURL=index.js.map

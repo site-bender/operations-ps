@@ -8,3 +8,4 @@ var devoid = function (dictStrong) {
 export {
     devoid
 };
+//# sourceMappingURL=index.js.map

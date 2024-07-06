@@ -16,3 +16,4 @@ export {
     bipure,
     biapplicativeTuple
 };
+//# sourceMappingURL=index.js.map

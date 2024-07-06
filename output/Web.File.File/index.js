@@ -18,3 +18,4 @@ export {
     type_,
     size
 };
+//# sourceMappingURL=index.js.map

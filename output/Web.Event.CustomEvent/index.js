@@ -36,3 +36,4 @@ export {
     new$prime,
     newWithOptions
 };
+//# sourceMappingURL=index.js.map

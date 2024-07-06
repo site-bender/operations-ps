@@ -393,3 +393,4 @@ export {
     comonadTuple,
     lazyTuple
 };
+//# sourceMappingURL=index.js.map

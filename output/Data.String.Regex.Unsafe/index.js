@@ -12,3 +12,4 @@ var unsafeRegex = function (s) {
 export {
     unsafeRegex
 };
+//# sourceMappingURL=index.js.map

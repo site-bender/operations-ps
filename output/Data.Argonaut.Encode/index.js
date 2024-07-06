@@ -20,3 +20,4 @@ export {
     extend,
     extendOptional
 } from "../Data.Argonaut.Encode.Combinators/index.js";
+//# sourceMappingURL=index.js.map

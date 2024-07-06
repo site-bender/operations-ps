@@ -50,3 +50,4 @@ export {
     semigroupEndo,
     monoidEndo
 };
+//# sourceMappingURL=index.js.map

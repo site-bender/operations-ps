@@ -3,3 +3,4 @@ var hashchange = "hashchange";
 export {
     hashchange
 };
+//# sourceMappingURL=index.js.map

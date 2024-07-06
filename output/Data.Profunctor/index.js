@@ -62,3 +62,4 @@ export {
     wrapIso,
     profunctorFn
 };
+//# sourceMappingURL=index.js.map
