@@ -2,117 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test</title>
   </head>
   <body>
-    <form>
-      <input type="number" name="pi" value="3.1415926">
-    </form>
-    <script type="module" src="/index.js"></script>
-    <script type="module">
-      import { createAddOp, createDivideOp, createFromConstantOp, createFromArgumentOp, makeOperate, OpInt } from "./output/Sitebender";
-      import { Just, Nothing } from "./output/Data.Maybe"
-      import { Right } from "./output/Data.Either"
-      import { testMe } from "./output/Sitebender.Json"
-
-      const argOp = createFromArgumentOp()
-      const conOp = createFromConstantOp(OpInt.create(9))
-      const addOp = createAddOp(argOp)(conOp)
-      const divOp = createDivideOp(conOp)(argOp)
-
-      const argulate = makeOperate(argOp)
-      const conulate = makeOperate(conOp)
-      const addEm = makeOperate(addOp)
-      const divEm = makeOperate(divOp)
-
-      const argOut = argulate(Just.create(OpInt.create(7)))()
-
-      const jsonAddOp = parseAddOp(`{"leftAddend":3,"rightAddend":7}`)
-
-      function unwrap (value) {
-        if (value instanceof Right) {
-          return value.value0.value0
-        }
-
-        return value.value0
-      }
-
-      console.log("Yay!", argOp, conOp, addOp)
-      console.log("Arg", argOut instanceof Right, argOut)
-      console.log("Con", conulate()())
-      console.log("addEm", unwrap(addEm(Just.create(OpInt.create(21)))()))
-      console.log("divEm", unwrap(divEm(Just.create(OpInt.create(0)))()))
-      console.log("divEm", unwrap(divEm(new Nothing())()))
-      console.log("jsonAddOp", jsonAddOp)
-
-      const json = {
-        tag: "AddOp",
-        values: [
-          {
-            tag: "AddOperation",
-            values: [
-              {
-                addends: [
-                  {
-                    tag: "FromConstantOp",
-                    values: [
-                      {
-                        tag: "FromConstantOperation",
-                        values: [
-                          {
-                            tag: "OpInt",
-                            value: {
-                              tag: "OpInt",
-                              values: [9],
-                            },
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    tag: "FromConstantOp",
-                    values: [
-                      {
-                        tag: "FromConstantOperation",
-                        values: [
-                          {
-                            tag: "OpInt",
-                            value: {
-                              tag: "OpInt",
-                              values: [7],
-                            },
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    tag: "FromConstantOp",
-                    values: [
-                      {
-                        tag: "FromConstantOperation",
-                        values: [
-                          {
-                            tag: "OpInt",
-                            value: {
-                              tag: "OpInt",
-                              values: [5],
-                            },
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      };
-
-      console.log("JSON back:", testMe(JSON.stringify(json)));
-    </script>
+    <input type="number" name="x" value="9">
+    <input type="number" name="y" value="5">
+    <input type="number" name="z" value="11">
+    <script type="module" src="/test.js"></script>
   </body>
 </html>
